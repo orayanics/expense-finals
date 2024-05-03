@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getDatabase, ref, onValue, remove, update } from "firebase/database";
+import { getDatabase, ref, onValue, remove, update, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
-export default function ExpenseList() {
+export default function ExpenseList({ totalAmount, setTotalAmount}) {
   const [expenses, setExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,9 +30,16 @@ export default function ExpenseList() {
               return new Date(b.date) - new Date(a.date);
             });
 
+            // total amount
+            const totalAmount = sortedExpenses.reduce((total, expense) => {
+              return total + parseFloat(expense.amount);
+            }, 0);
+
+            setTotalAmount(totalAmount);
             setExpenses(sortedExpenses);
           } else {
             setExpenses([]);
+            setTotalAmount(0);
             console.log("No expenses found for the user.");
           }
           setLoading(false);
@@ -52,9 +59,13 @@ export default function ExpenseList() {
   };
 
   // THIS IS FOR EDITING WOOF
-  // TODO: Add validation for the updated expense
-  // TODO: Add a confirmation dialog before updating
   const handleEdit = (updatedExpense, expenseId) => {
+    // Validate the input
+    if (!validateInput(updatedExpense.type, updatedExpense.amount)) {
+      alert("Invalid input. Please enter a valid expense name and amount.");
+      return;
+    }
+
     const { expenseId: _, ...updatedData } = updatedExpense;
     update(ref(db, `users/${userId}/expenses/${expenseId}`), updatedData)
       .then(() => {
@@ -68,12 +79,9 @@ export default function ExpenseList() {
   return (
     <div>
       <h2>Expense List</h2>
-      {loading ? 
-      (
+      {loading ? (
         <div>Loading...</div>
-      ) : 
-      {/* START OF MAPPING */}
-      (
+      ) : (
         <ul>
           {expenses.map((expense) => (
             <li key={expense.expenseId}>
@@ -126,7 +134,23 @@ export default function ExpenseList() {
           ))}
         </ul>
       )}
-      {/* END OF MAPPING */}
     </div>
   );
+}
+
+function validateInput(type, amount) {
+  const typeRegex = /^[a-zA-Z0-9\s]*$/;
+  const isType = typeRegex.test(type);
+
+  // Check if the type is a string and the amount is a number
+  if (!type || !amount) {
+    return false;
+  }
+  if (!isType) {
+    return false;
+  }
+  if (amount <= 0) {
+    return false;
+  }
+  return true;
 }

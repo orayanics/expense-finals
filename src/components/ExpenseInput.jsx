@@ -2,20 +2,42 @@ import { useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
+function validateInput(type, amount) {
+  const typeRegex = /^[a-zA-Z0-9\s]*$/;
+  const isType = typeRegex.test(type);
+
+  // Check if the type is a string and the amount is a number
+  if (!type.trim() || !amount.trim()) {
+    return false;
+  }
+  if (!isType) {
+    return false;
+  }
+  if (amount <= 0) {
+    return false;
+  }
+  return true;
+}
+
 export default function ExpenseInput() {
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
 
-  // TODO: Validate the expense amount to be a number
-  // TODO: Validate the expense name to be a string
   // TODO: Add category (?)
   const handleExpenseSubmit = (event) => {
     event.preventDefault();
 
+    // Validate the input
+    if (!validateInput(expenseName, expenseAmount)) {
+      alert("Invalid input. Please enter a valid expense name and amount.");
+      setExpenseName("");
+      setExpenseAmount("");
+      return;
+    }
     const db = getDatabase();
 
     // Get USER ID
-    const userId = getUser().userId; // Getting the user's UID from the getUser function
+    const userId = getUser().userId;
 
     // Unique ID new expense
     const newExpense = Math.random().toString(36).substr(2, 9);
@@ -31,7 +53,6 @@ export default function ExpenseInput() {
       second: "2-digit",
     });
 
-    // Set expense data with server timestamp
     const newExpenseData = {
       date: formattedDate,
       type: expenseName,
