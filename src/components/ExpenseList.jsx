@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue, remove, update, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
-export default function ExpenseList({ totalAmount, setTotalAmount}) {
+export default function ExpenseList({setTotalAmount, setIsLoading}) {
   const [expenses, setExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,6 +42,7 @@ export default function ExpenseList({ totalAmount, setTotalAmount}) {
             setTotalAmount(0);
             console.log("No expenses found for the user.");
           }
+          setIsLoading(false);
           setLoading(false);
         }
       );

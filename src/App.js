@@ -8,13 +8,14 @@ import Dashboard from "./pages/Dashboard";
 import Expense from "./pages/Expense";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
+import NotFound from "./pages/NotFound";
 
 // React Router
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthProvider />,
-    errorElement: <div>404 Not Found</div>,
+    errorElement: <NotFound />,
   },
   {
     element: <ProtectedRoutes />,

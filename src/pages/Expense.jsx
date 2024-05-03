@@ -7,7 +7,7 @@ import ExpenseList from "../components/ExpenseList";
 export default function Expense() {
   const [date, setDate] = useState(new Date());
   const [totalAmount, setTotalAmount] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,11 +35,14 @@ export default function Expense() {
       </div>
 
       <div>
-        <ExpenseList totalAmount={totalAmount} setTotalAmount={setTotalAmount} />
+        <ExpenseList
+          setTotalAmount={setTotalAmount}
+          setIsLoading={setIsLoading}
+        />
       </div>
 
       <div>
-        <h2>Total Amount: {totalAmount}</h2>
+        {isLoading ? "" : <h2>Total Amount: {totalAmount}</h2>}
       </div>
     </>
   );
