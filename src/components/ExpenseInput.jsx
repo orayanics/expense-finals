@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { getDatabase, ref, set, serverTimestamp } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
 export default function ExpenseInput() {
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
 
+  // TODO: Validate the expense amount to be a number
+  // TODO: Validate the expense name to be a string
+  // TODO: Add category (?)
   const handleExpenseSubmit = (event) => {
     event.preventDefault();
 
@@ -32,7 +35,6 @@ export default function ExpenseInput() {
       amount: parseFloat(expenseAmount),
     };
 
-    console.log(newExpenseData);
     // Insert to db
     set(ref(db, `users/${userId}/expenses/${newExpense}`), newExpenseData);
   };

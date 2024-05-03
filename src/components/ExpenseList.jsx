@@ -43,11 +43,14 @@ export default function ExpenseList() {
   }, [userId]);
 
   // THIS IS FOR DELETING WOOF
+  // TODO: Add a confirmation dialog before deleting
   const handleDelete = (expenseId) => {
     remove(ref(db, `users/${userId}/expenses/${expenseId}`));
   };
 
   // THIS IS FOR EDITING WOOF
+  // TODO: Add validation for the updated expense
+  // TODO: Add a confirmation dialog before updating
   const handleEdit = (updatedExpense, expenseId) => {
     const { expenseId: _, ...updatedData } = updatedExpense;
     update(ref(db, `users/${userId}/expenses/${expenseId}`), updatedData)
