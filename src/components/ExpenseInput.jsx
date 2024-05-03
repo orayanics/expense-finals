@@ -17,13 +17,22 @@ export default function ExpenseInput() {
     // Unique ID new expense
     const newExpense = Math.random().toString(36).substr(2, 9);
 
+    // Date
+    const date = new Date();
+    const formattedDate = date.toLocaleDateString("default", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    });
+
     // Set expense data with server timestamp
     const newExpenseData = {
-      date: serverTimestamp(),
+      date: formattedDate,
       type: expenseName,
       amount: parseFloat(expenseAmount),
     };
 
+    console.log(newExpenseData);
     // Insert to db
     set(ref(db, `users/${userId}/expenses/${newExpense}`), newExpenseData);
   };
