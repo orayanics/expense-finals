@@ -15,6 +15,7 @@ export default function Login() {
       photo: res.user.photoURL,
       isAuth: true,
     }
+    console.log(authInfo.userId)
     localStorage.setItem("auth", JSON.stringify(authInfo))
     navigate("/dashboard")
   }

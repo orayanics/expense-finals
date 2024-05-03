@@ -1,13 +1,13 @@
-[debug] [2024-04-29T15:44:24.862Z] ----------------------------------------------------------------------
-[debug] [2024-04-29T15:44:24.865Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Lenovo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
-[debug] [2024-04-29T15:44:24.865Z] CLI Version:   13.7.5
-[debug] [2024-04-29T15:44:24.865Z] Platform:      win32
-[debug] [2024-04-29T15:44:24.865Z] Node Version:  v18.17.1
-[debug] [2024-04-29T15:44:24.866Z] Time:          Mon Apr 29 2024 23:44:24 GMT+0800 (Singapore Standard Time)
-[debug] [2024-04-29T15:44:24.866Z] ----------------------------------------------------------------------
+[debug] [2024-05-03T08:03:06.434Z] ----------------------------------------------------------------------
+[debug] [2024-05-03T08:03:06.436Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Lenovo\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-05-03T08:03:06.436Z] CLI Version:   13.7.5
+[debug] [2024-05-03T08:03:06.436Z] Platform:      win32
+[debug] [2024-05-03T08:03:06.436Z] Node Version:  v18.17.1
+[debug] [2024-05-03T08:03:06.437Z] Time:          Fri May 03 2024 16:03:06 GMT+0800 (Singapore Standard Time)
+[debug] [2024-05-03T08:03:06.437Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2024-04-29T15:44:24.936Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-04-29T15:44:24.937Z] > authorizing via signed-in user (nicole.oraya.cics@ust.edu.ph)
+[debug] [2024-05-03T08:03:06.442Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-05-03T08:03:06.442Z] > authorizing via signed-in user (nicole.oraya.cics@ust.edu.ph)
 [info] 
      ######## #### ########  ######## ########     ###     ######  ########
      ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
@@ -22,7 +22,6 @@ You're about to initialize a Firebase project in this directory:
 Before we get started, keep in mind:
 
   * You are currently outside your home directory
-  * You are initializing within an existing Firebase project directory
 
 [info] 
 === Project Setup
@@ -31,44 +30,28 @@ Before we get started, keep in mind:
 [info] You can create multiple project aliases by running firebase use --add, 
 [info] but for now we'll just set up a default project.
 [info] 
-[debug] [2024-04-29T15:44:44.820Z] Using project from CLI flag: expense-tracker-ecf38
-[debug] [2024-04-29T15:44:44.822Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/expense-tracker-ecf38 [none]
-[debug] [2024-04-29T15:44:45.294Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/expense-tracker-ecf38 200
-[debug] [2024-04-29T15:44:45.295Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/expense-tracker-ecf38 {"projectId":"expense-tracker-ecf38","projectNumber":"427083204060","displayName":"expense-tracker","name":"projects/expense-tracker-ecf38","resources":{"hostingSite":"expense-tracker-ecf38","realtimeDatabaseInstance":"expense-tracker-ecf38-default-rtdb"},"state":"ACTIVE","etag":"1_fb06df5c-fc4c-4598-8303-46a85d8c7d25"}
-[info] i  Using project expense-tracker-ecf38 (expense-tracker) 
+[debug] [2024-05-03T08:03:20.772Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-05-03T08:03:21.464Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-05-03T08:03:21.464Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project expense-finals (expense-finals) 
 [info] 
-=== Firestore Setup
-[debug] [2024-04-29T15:44:45.329Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/expense-tracker-ecf38/services/firestore.googleapis.com [none]
-[debug] [2024-04-29T15:44:45.330Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/expense-tracker-ecf38/services/firestore.googleapis.com x-goog-quota-user=projects/expense-tracker-ecf38
-[debug] [2024-04-29T15:44:46.656Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/expense-tracker-ecf38/services/firestore.googleapis.com 200
-[debug] [2024-04-29T15:44:46.657Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/expense-tracker-ecf38/services/firestore.googleapis.com [omitted]
-[debug] [2024-04-29T15:44:46.657Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/expense-tracker-ecf38/databases/(default) [none]
-[debug] [2024-04-29T15:44:46.859Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/expense-tracker-ecf38/databases/(default) 200
-[debug] [2024-04-29T15:44:46.859Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/expense-tracker-ecf38/databases/(default) {"name":"projects/expense-tracker-ecf38/databases/(default)","uid":"358b3839-a8d3-4faf-92eb-2ff63071ac5d","createTime":"2024-04-29T15:44:17.630900Z","updateTime":"2024-04-29T15:44:17.630900Z","locationId":"asia-east2","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2024-04-29T15:44:17.630900Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"n","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","etag":"IID/5oni54UDMLSttoLi54UD"}
-[debug] [2024-04-29T15:44:46.859Z] database_type: FIRESTORE_NATIVE
-[debug] [2024-04-29T15:44:46.859Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-04-29T15:44:46.860Z] > authorizing via signed-in user (nicole.oraya.cics@ust.edu.ph)
-[debug] [2024-04-29T15:44:46.860Z] [iam] checking project expense-tracker-ecf38 for permissions ["firebase.projects.get"]
-[debug] [2024-04-29T15:44:46.860Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/expense-tracker-ecf38:testIamPermissions [none]
-[debug] [2024-04-29T15:44:46.860Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/expense-tracker-ecf38:testIamPermissions x-goog-quota-user=projects/expense-tracker-ecf38
-[debug] [2024-04-29T15:44:46.860Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/expense-tracker-ecf38:testIamPermissions {"permissions":["firebase.projects.get"]}
-[debug] [2024-04-29T15:44:47.853Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/expense-tracker-ecf38:testIamPermissions 200
-[debug] [2024-04-29T15:44:47.854Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/expense-tracker-ecf38:testIamPermissions {"permissions":["firebase.projects.get"]}
+=== Database Setup
+[info] i  database: ensuring required API firebasedatabase.googleapis.com is enabled... 
+[debug] [2024-05-03T08:03:24.051Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com [none]
+[debug] [2024-05-03T08:03:24.052Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com x-goog-quota-user=projects/expense-finals
+[debug] [2024-05-03T08:03:25.506Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com 200
+[debug] [2024-05-03T08:03:25.506Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com [omitted]
+[warn] !  database: missing required API firebasedatabase.googleapis.com. Enabling now... 
+[debug] [2024-05-03T08:03:25.507Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com:enable [none]
+[debug] [2024-05-03T08:03:25.507Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com:enable x-goog-quota-user=projects/expense-finals
+[debug] [2024-05-03T08:03:27.182Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com:enable 200
+[debug] [2024-05-03T08:03:27.182Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com:enable [omitted]
+[debug] [2024-05-03T08:03:37.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com [none]
+[debug] [2024-05-03T08:03:37.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com x-goog-quota-user=projects/expense-finals
+[debug] [2024-05-03T08:03:38.602Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com 200
+[debug] [2024-05-03T08:03:38.602Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/expense-finals/services/firebasedatabase.googleapis.com [omitted]
+[info] +  database: required API firebasedatabase.googleapis.com is enabled 
 [info] 
-[info] Firestore Security Rules allow you to define how and when to allow
-[info] requests. You can keep these rules in your project directory
-[info] and publish them with firebase deploy.
-[info] 
-[debug] [2024-04-29T15:44:50.322Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/releases pageSize=10&pageToken=
-[debug] [2024-04-29T15:44:51.675Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/releases 200
-[debug] [2024-04-29T15:44:51.676Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/releases {"releases":[{"name":"projects/expense-tracker-ecf38/releases/cloud.firestore","rulesetName":"projects/expense-tracker-ecf38/rulesets/39bb2a33-b58b-4fd2-8212-b030974a80ad","createTime":"2024-04-29T15:44:25.565581Z","updateTime":"2024-04-29T15:44:25.565581Z"}]}
-[debug] [2024-04-29T15:44:51.676Z] Found ruleset: projects/expense-tracker-ecf38/rulesets/39bb2a33-b58b-4fd2-8212-b030974a80ad
-[debug] [2024-04-29T15:44:51.676Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/rulesets/39bb2a33-b58b-4fd2-8212-b030974a80ad [none]
-[debug] [2024-04-29T15:44:52.292Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/rulesets/39bb2a33-b58b-4fd2-8212-b030974a80ad 200
-[debug] [2024-04-29T15:44:52.292Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/expense-tracker-ecf38/rulesets/39bb2a33-b58b-4fd2-8212-b030974a80ad [omitted]
-[info] 
-[info] Firestore indexes allow you to perform complex queries while
-[info] maintaining performance that scales with the size of the result
-[info] set. You can keep index definitions in your project directory
-[info] and publish them with firebase deploy.
-[info] 
+[debug] [2024-05-03T08:03:38.605Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/expense-finals [none]
+[debug] [2024-05-03T08:03:39.270Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/expense-finals 200
+[debug] [2024-05-03T08:03:39.271Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/expense-finals {"projectId":"expense-finals","projectNumber":"976220574223","displayName":"expense-finals","name":"projects/expense-finals","resources":{"hostingSite":"expense-finals"},"state":"ACTIVE","etag":"1_f135ee3a-c5e6-4a9a-ba0c-a5a0340631f3"}

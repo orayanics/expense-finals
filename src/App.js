@@ -5,7 +5,7 @@ import {
 
 // Import Pages
 import Dashboard from "./pages/Dashboard";
-import Reports from "./pages/Reports";
+import Expense from "./pages/Expense";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/reports",
-        element: <Reports />,
+        path: "/expense",
+        element: <Expense />,
       },
     ],
   },

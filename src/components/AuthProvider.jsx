@@ -16,7 +16,6 @@ const AuthProvider = () => {
 
   return (
     <>
-      <p>AuthProvider</p>
       <Login />
     </>
   );
