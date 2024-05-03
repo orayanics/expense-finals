@@ -9,38 +9,41 @@ export default function ExpenseList() {
   const { userId } = getUser();
 
   const db = getDatabase();
-  const userRef = ref(db, `users/${userId}/expenses`);
 
   // THIS IS FOR FETCHING WOOF
   useEffect(() => {
     const fetchData = () => {
-      const unsubscribe = onValue(userRef, (snapshot) => {
-        const userExpenses = snapshot.val();
-        if (userExpenses) {
-          const allExpenses = Object.entries(userExpenses).map(
-            ([expenseId, expense]) => ({
-              expenseId,
-              ...expense,
-            })
-          );
+      const unsubscribe = onValue(
+        ref(db, `users/${userId}/expenses`),
+        (snapshot) => {
+          const userExpenses = snapshot.val();
+          if (userExpenses) {
+            const allExpenses = Object.entries(userExpenses).map(
+              ([expenseId, expense]) => ({
+                expenseId,
+                ...expense,
+              })
+            );
 
-          // sort by date
-          const sortedExpenses = allExpenses.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
-          });
+            // sort by date
+            const sortedExpenses = allExpenses.sort((a, b) => {
+              return new Date(b.date) - new Date(a.date);
+            });
 
-          setExpenses(sortedExpenses);
-        } else {
-          console.log("No expenses found for the user.");
+            setExpenses(sortedExpenses);
+          } else {
+            setExpenses([]);
+            console.log("No expenses found for the user.");
+          }
+          setLoading(false);
         }
-        setLoading(false);
-      });
+      );
 
       return () => unsubscribe();
     };
 
     fetchData();
-  }, [userId]);
+  }, [userId, db]);
 
   // THIS IS FOR DELETING WOOF
   // TODO: Add a confirmation dialog before deleting
@@ -65,9 +68,12 @@ export default function ExpenseList() {
   return (
     <div>
       <h2>Expense List</h2>
-      {loading ? (
+      {loading ? 
+      (
         <div>Loading...</div>
-      ) : (
+      ) : 
+      {/* START OF MAPPING */}
+      (
         <ul>
           {expenses.map((expense) => (
             <li key={expense.expenseId}>
@@ -120,6 +126,7 @@ export default function ExpenseList() {
           ))}
         </ul>
       )}
+      {/* END OF MAPPING */}
     </div>
   );
 }
