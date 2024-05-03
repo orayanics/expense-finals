@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue, remove, update } from "firebase/database";
 import { getUser } from "../utils/getUser";
+
 export default function ExpenseList() {
   const [expenses, setExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
@@ -62,7 +63,7 @@ export default function ExpenseList() {
  return (
    <div>
      <h2>Expense List</h2>
-     {loading ? ( // Render loader if data is loading
+     {loading ? (
        <div>Loading...</div>
      ) : (
        <ul>
