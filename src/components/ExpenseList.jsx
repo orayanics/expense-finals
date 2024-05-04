@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDatabase, ref, onValue, remove, update, set } from "firebase/database";
+import { getDatabase, ref, onValue, remove, update } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
 export default function ExpenseList({setTotalAmount, setIsLoading}) {

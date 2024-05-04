@@ -3,7 +3,6 @@ import Navigation from "../components/Navigation";
 
 const ProtectedRoutes = () => {
   const auth = JSON.parse(localStorage.getItem("auth"));
-
   if (!auth) {
     return <Navigate to="/" />;
   }
@@ -11,7 +10,7 @@ const ProtectedRoutes = () => {
   return (
     <>
       {auth && <Navigation />}
-      <Outlet />
+      <Outlet/>
     </>
   );
 };

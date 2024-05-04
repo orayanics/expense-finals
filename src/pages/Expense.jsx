@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import ExpenseInput from "../components/ExpenseInput";
 import ExpenseList from "../components/ExpenseList";
 
+// Utils
+import ConditionalMessage from "../components/ConditionalMessage";
+
 export default function Expense() {
   const [date, setDate] = useState(new Date());
   const [totalAmount, setTotalAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  // date
   useEffect(() => {
     const interval = setInterval(() => {
       setDate(new Date());
@@ -42,7 +46,7 @@ export default function Expense() {
       </div>
 
       <div>
-        {isLoading ? "" : <h2>Total Amount: {totalAmount}</h2>}
+        <ConditionalMessage condition={!isLoading} message={`Total Amount: ${totalAmount}`} />
       </div>
     </>
   );
