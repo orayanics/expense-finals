@@ -1,6 +1,6 @@
 import { getUser } from "../utils/getUser";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import ConditionalMessage from "../components/ConditionalMessage";
 
 export default function Dashboard() {
@@ -15,46 +15,46 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [countExpenses, setCountExpenses] = useState(0);
 
-  useEffect(() => {
-    const fetchData = () => {
-      const unsubscribe = onValue(
-        ref(db, `users/${userId}/expenses`),
-        (snapshot) => {
-          const userExpenses = snapshot.val();
-          if (userExpenses) {
-            const allExpenses = Object.values(userExpenses);
+useEffect(() => {
+  const fetchData = () => {
+    const unsubscribe = onValue(
+      ref(db, `users/${userId}/expenses`),
+      (snapshot) => {
+        setCountExpenses(snapshot.val());
+        setIsLoading(false);
+      }
+    );
 
-            // get current week
-            const currentDate = new Date();
-            const currentWeekStart = new Date(currentDate);
-            currentWeekStart.setDate(
-              currentDate.getDate() - currentDate.getDay() + 1
-            );
-            const currentWeekEnd = new Date(currentWeekStart);
-            currentWeekEnd.setDate(currentWeekStart.getDate() + 6); // Sunday
+    return () => unsubscribe();
+  };
 
-            // get expenses only for current week
-            const expensesThisWeek = allExpenses.filter((expense) => {
-              const expenseDate = new Date(expense.date);
-              return (
-                expenseDate >= currentWeekStart && expenseDate <= currentWeekEnd
-              );
-            });
+  fetchData();
+}, [userId, db]);
 
-            setCountExpenses(expensesThisWeek.length);
-          } else {
-            setCountExpenses(0);
-            console.log("No expenses found for the user.");
-          }
-          setIsLoading(false);
-        }
-      );
+  const countExpensesThisWeek = useMemo(() => {
+        if (!countExpenses) return 0;
 
-      return () => unsubscribe();
-    };
+        const allExpenses = Object.values(countExpenses);
 
-    fetchData();
-  }, [userId, db]);
+        // get current week
+        const currentDate = new Date();
+        const currentWeekStart = new Date(currentDate);
+        currentWeekStart.setDate(
+          currentDate.getDate() - currentDate.getDay() + 1
+        );
+        const currentWeekEnd = new Date(currentWeekStart);
+        currentWeekEnd.setDate(currentWeekStart.getDate() + 6); // Sunday
+
+        // get expenses only for current week
+        const expensesThisWeek = allExpenses.filter((expense) => {
+          const expenseDate = new Date(expense.date);
+          return (
+            expenseDate >= currentWeekStart && expenseDate <= currentWeekEnd
+          );
+        });
+
+        return expensesThisWeek.length;
+  }, [countExpenses])
 
   return (
     <>
@@ -71,8 +71,8 @@ export default function Dashboard() {
             <h5>Loading...</h5>
           ) : (
             <ConditionalMessage
-              condition={countExpenses > 0}
-              message={`You have ${countExpenses} expenses this week.`}
+              condition={countExpensesThisWeek > 0}
+              message={`You have ${countExpensesThisWeek} expenses this week.`}
             />
           )}
         </div>

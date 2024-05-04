@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
-import { getDatabase, ref, onValue, remove, update } from "firebase/database";
+import { useEffect, useState, useCallback } from "react";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  remove,
+  update,
+} from "firebase/database";
 import { getUser } from "../utils/getUser";
 
-export default function ExpenseList({setTotalAmount, setIsLoading}) {
+export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   const [expenses, setExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,71 +17,60 @@ export default function ExpenseList({setTotalAmount, setIsLoading}) {
   const db = getDatabase();
 
   // THIS IS FOR FETCHING WOOF
-  useEffect(() => {
-    const fetchData = () => {
-      const unsubscribe = onValue(
-        ref(db, `users/${userId}/expenses`),
-        (snapshot) => {
-          const userExpenses = snapshot.val();
-          if (userExpenses) {
-            const allExpenses = Object.entries(userExpenses).map(
-              ([expenseId, expense]) => ({
-                expenseId,
-                ...expense,
-              })
-            );
+  const fetchData = useCallback(() => {
+    const unsubscribe = onValue(
+      ref(db, `users/${userId}/expenses`),
+      (snapshot) => {
+        const userExpenses = snapshot.val() || {};
+        const allExpenses = Object.entries(userExpenses)
+          .map(([expenseId, expense]) => ({
+            expenseId,
+            ...expense,
+          }))
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // sort by date
-            const sortedExpenses = allExpenses.sort((a, b) => {
-              return new Date(b.date) - new Date(a.date);
-            });
+        const totalAmount = allExpenses.reduce(
+          (total, expense) => total + Number(expense.amount),
+          0
+        );
 
-            // total amount
-            const totalAmount = sortedExpenses.reduce((total, expense) => {
-              return total + parseFloat(expense.amount);
-            }, 0);
+        setTotalAmount(totalAmount);
+        setExpenses(allExpenses);
+        setLoading(false);
+        setIsLoading(false);
+      }
+    );
 
-            setTotalAmount(totalAmount);
-            setExpenses(sortedExpenses);
-          } else {
-            setExpenses([]);
-            setTotalAmount(0);
-            console.log("No expenses found for the user.");
-          }
-          setIsLoading(false);
-          setLoading(false);
-        }
-      );
+    return () => unsubscribe();
+  }, [userId, db, setTotalAmount, setLoading, setIsLoading]);
 
-      return () => unsubscribe();
-    };
-
-    fetchData();
-  }, [userId, db]);
+  useEffect(() => fetchData(), [fetchData]);
 
   // THIS IS FOR DELETING WOOF
   // TODO: Add a confirmation dialog before deleting
-  const handleDelete = (expenseId) => {
-    remove(ref(db, `users/${userId}/expenses/${expenseId}`));
-  };
+  const handleDelete = useCallback(
+    (expenseId) => {
+      remove(ref(db, `users/${userId}/expenses/${expenseId}`));
+    },
+    [db, userId]
+  );
 
   // THIS IS FOR EDITING WOOF
-  const handleEdit = (updatedExpense, expenseId) => {
-    // Validate the input
-    if (!validateInput(updatedExpense.type, updatedExpense.amount)) {
-      alert("Invalid input. Please enter a valid expense name and amount.");
-      return;
-    }
-
-    const { expenseId: _, ...updatedData } = updatedExpense;
-    update(ref(db, `users/${userId}/expenses/${expenseId}`), updatedData)
-      .then(() => {
-        setEditExpense(null);
+  const handleEdit = useCallback(
+    (updatedExpense, expenseId) => {
+      if (!validateInput(updatedExpense.type, updatedExpense.amount)) {
+        alert("Invalid input. Please enter a valid expense name and amount.");
+        return;
+      }
+      update(ref(db, `users/${userId}/expenses/${expenseId}`), {
+        type: updatedExpense.type,
+        amount: updatedExpense.amount,
       })
-      .catch((error) => {
-        console.error("Error updating expense: ", error);
-      });
-  };
+        .then(() => setEditExpense(null))
+        .catch((error) => console.error("Error updating expense: ", error));
+    },
+    [db, userId]
+  );
 
   return (
     <div>
