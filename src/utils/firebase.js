@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { get } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

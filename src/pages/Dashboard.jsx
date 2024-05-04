@@ -29,27 +29,24 @@ export default function Dashboard() {
   }, [userId]);
 
   const { startOfWeek, endOfWeek } = useMemo(() => {
-    const now = new Date();
-    const firstDayOfWeek = new Date(
-      now.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1))
-    ).setHours(0, 0, 0, 0);
-    const lastDayOfWeek = new Date(
-      new Date(firstDayOfWeek).setDate(new Date(firstDayOfWeek).getDate() + 6)
-    ).setHours(23, 59, 59, 999);
-    return {
-      startOfWeek: new Date(firstDayOfWeek),
-      endOfWeek: new Date(lastDayOfWeek),
-    };
+    let now = new Date();
+    // Adjusting for the scenario when today is Sunday (getDay() === 0)
+    let day = now.getDay() || 7; // Make Sunday a 7 instead of 0
+    if (day !== 1) now.setHours(-24 * (day - 1)); // Only move days if not Monday
+    now.setHours(0, 0, 0, 0); // Start of the week
+
+    let end = new Date(now);
+    end.setDate(now.getDate() + 6); // Next 6 days to get to the end of the week
+    end.setHours(23, 59, 59, 999); // End of the week
+
+    return { startOfWeek: now, endOfWeek: end };
   }, []);
 
   const countExpensesThisWeek = useMemo(
     () =>
       expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date).getTime();
-        return (
-          expenseDate >= startOfWeek.getTime() &&
-          expenseDate <= endOfWeek.getTime()
-        );
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startOfWeek && expenseDate <= endOfWeek;
       }).length,
     [expenses, startOfWeek, endOfWeek]
   );
@@ -61,7 +58,7 @@ export default function Dashboard() {
       </div>
       {userId && (
         <div>
-        <img src={user.photo} alt={userId.name} />
+          <img src={user.photo} alt={user.name} />
           {isLoading ? (
             <h5>Loading...</h5>
           ) : (
