@@ -7,7 +7,7 @@ export default function Navigation() {
 
   const logout = async () => {
     await signOut(auth);
-    localStorage.clear("auth");
+    localStorage.removeItem("auth");
     navigate("/");
   };
 

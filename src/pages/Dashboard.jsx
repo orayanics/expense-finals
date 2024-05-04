@@ -1,72 +1,67 @@
-import { getUser } from "../utils/getUser";
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState, useMemo } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { getUser } from "../utils/getUser";
 import ConditionalMessage from "../components/ConditionalMessage";
 
 export default function Dashboard() {
-  // get user
   const user = JSON.parse(localStorage.getItem("auth"));
   const { userId } = getUser();
-
-  // get database
-  const db = getDatabase();
-
-  // state variables
   const [isLoading, setIsLoading] = useState(true);
-  const [countExpenses, setCountExpenses] = useState(0);
+  const [expenses, setExpenses] = useState([]);
 
-useEffect(() => {
-  const fetchData = () => {
-    const unsubscribe = onValue(
+  useEffect(() => {
+    const db = getDatabase();
+    setIsLoading(true);
+    onValue(
       ref(db, `users/${userId}/expenses`),
       (snapshot) => {
-        setCountExpenses(snapshot.val());
         setIsLoading(false);
+        const expensesData = snapshot.val();
+        const formattedExpenses = expensesData
+          ? Object.values(expensesData)
+          : [];
+        setExpenses(formattedExpenses);
+      },
+      {
+        onlyOnce: true,
       }
     );
+  }, [userId]);
 
-    return () => unsubscribe();
-  };
+  const { startOfWeek, endOfWeek } = useMemo(() => {
+    const now = new Date();
+    const firstDayOfWeek = new Date(
+      now.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1))
+    ).setHours(0, 0, 0, 0);
+    const lastDayOfWeek = new Date(
+      new Date(firstDayOfWeek).setDate(new Date(firstDayOfWeek).getDate() + 6)
+    ).setHours(23, 59, 59, 999);
+    return {
+      startOfWeek: new Date(firstDayOfWeek),
+      endOfWeek: new Date(lastDayOfWeek),
+    };
+  }, []);
 
-  fetchData();
-}, [userId, db]);
-
-  const countExpensesThisWeek = useMemo(() => {
-        if (!countExpenses) return 0;
-
-        const allExpenses = Object.values(countExpenses);
-
-        // get current week
-        const currentDate = new Date();
-        const currentWeekStart = new Date(currentDate);
-        currentWeekStart.setDate(
-          currentDate.getDate() - currentDate.getDay() + 1
+  const countExpensesThisWeek = useMemo(
+    () =>
+      expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date).getTime();
+        return (
+          expenseDate >= startOfWeek.getTime() &&
+          expenseDate <= endOfWeek.getTime()
         );
-        const currentWeekEnd = new Date(currentWeekStart);
-        currentWeekEnd.setDate(currentWeekStart.getDate() + 6); // Sunday
-
-        // get expenses only for current week
-        const expensesThisWeek = allExpenses.filter((expense) => {
-          const expenseDate = new Date(expense.date);
-          return (
-            expenseDate >= currentWeekStart && expenseDate <= currentWeekEnd
-          );
-        });
-
-        return expensesThisWeek.length;
-  }, [countExpenses])
+      }).length,
+    [expenses, startOfWeek, endOfWeek]
+  );
 
   return (
     <>
       <div>
         <h3>Dashboard</h3>
       </div>
-
-      {user && (
+      {userId && (
         <div>
-          <h4>{user.name}</h4>
-          <img src={user.photo} alt={user.name} />
-          {/* is it loading */}
+        <img src={user.photo} alt={userId.name} />
           {isLoading ? (
             <h5>Loading...</h5>
           ) : (
