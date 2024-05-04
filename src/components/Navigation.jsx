@@ -12,12 +12,12 @@ export default function Navigation() {
   };
 
   return (
-    <nav>
+    <nav className="d-flex flex-column container-fluid">
       <div>
         <p>MoneyMommy</p>
       </div>
 
-      <div>
+      <div className="d-flex flex-column mb-3">
         <a href={`/dashboard`}>
           <button>Dashboard</button>
         </a>

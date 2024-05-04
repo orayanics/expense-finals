@@ -3,6 +3,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+// Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // Import Pages
 import Dashboard from "./pages/Dashboard";
 import Expense from "./pages/Expense";

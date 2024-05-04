@@ -1,0 +1,14 @@
+/* Desktop */
+@media (min-width: 992px) {
+  .navigation-col {
+    height: 100vh;
+    overflow: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 991.98px) {
+  .navigation-col {
+    height: auto;
+  }
+}
