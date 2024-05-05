@@ -17,7 +17,7 @@ const ProtectedRoutes = () => {
         <Col xs={12} lg={2} className="bg-light pt-3 navigation-col">
           <Navigation />
         </Col>
-        <Col xs={12} lg={9} className="pt-3 overflow-auto">
+        <Col xs={12} lg={10} className="pt-3 overflow-auto">
           <Outlet />
         </Col>
       </Row>

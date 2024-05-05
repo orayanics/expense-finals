@@ -12,20 +12,27 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="d-flex flex-column container-fluid">
+    <nav className="d-flex flex-column justify-content-between container-fluid h-100">
       <div>
-        <p>MoneyMommy</p>
+        <div>
+          <p>MoneyMommy</p>
+        </div>
+
+        <div>
+          <a href={`/dashboard`} className="d-flex flex-row mb-3 gap-2">
+            <i className="bi bi-bank"></i>
+            <button>Dashboard</button>
+          </a>
+
+          <a href={`/Expense`} className="d-flex flex-row mb-3 gap-2">
+            <i className="bi bi-cash"></i>
+            <button>Expense</button>
+          </a>
+        </div>
       </div>
 
-      <div className="d-flex flex-column mb-3">
-        <a href={`/dashboard`}>
-          <button>Dashboard</button>
-        </a>
-
-        <a href={`/Expense`}>
-          <button>Expense</button>
-        </a>
-
+      <div className="d-flex flex-row mb-3 gap-2">
+        <i className="bi bi-box-arrow-left"></i>
         <button onClick={logout}>Logout</button>
       </div>
     </nav>
