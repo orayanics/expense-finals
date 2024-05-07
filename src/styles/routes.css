@@ -12,3 +12,73 @@
     height: auto;
   }
 }
+
+body {
+  background-color: #f4f4f4;
+}
+
+/*login */
+.text1 {
+  font-size: 90px;
+}
+
+.text2 {
+  font-weight: bold;
+  font-size: 90px;
+}
+
+.signin {
+  border-radius: 20px; 
+  background-color: #373737; 
+  color: #fff; 
+  width: fit-content; /* Or use width: auto; */
+  margin: auto; 
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px; 
+  border: none; 
+  transition: background-color 0.5 ease;
+}
+
+.signin:hover {
+  background-color: black;
+}
+
+/* navbar */
+.topnav {
+  background-color: #f4f4f4;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: right;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.topnav b {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 2px 2px;
+  font-size: 17px;
+}
+
+#moving {
+  animation-name: float;
+  animation-duration: 2s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes float {
+  0% { transform: translate(0,  0px); }
+  50%  { transform: translate(0, 50px); }
+  100%   { transform: translate(0, -0px); } 
+}
+
