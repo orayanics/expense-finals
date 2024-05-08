@@ -170,6 +170,65 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
             ))}
           </ul>
         </>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <ul>
+          {expenses.map((expense) => (
+            <li key={expense.expenseId}>
+              {editExpense === expense.expenseId ? (
+                <div>
+                  <input
+                    type="text"
+                    value={expense.type}
+                    className="expense-input"
+                    onChange={(e) =>
+                      setExpenses((prevExpenses) =>
+                        prevExpenses.map((prevExpense) =>
+                          prevExpense.expenseId === expense.expenseId
+                            ? { ...prevExpense, type: e.target.value }
+                            : prevExpense
+                        )
+                      )
+                    }
+                  />
+                  <input
+                    type="number"
+                    value={expense.amount}
+                    className="expense-input"
+                    onChange={(e) =>
+                      setExpenses((prevExpenses) =>
+                        prevExpenses.map((prevExpense) =>
+                          prevExpense.expenseId === expense.expenseId
+                            ? { ...prevExpense, amount: e.target.value }
+                            : prevExpense
+                        )
+                      )
+                    }
+                  />
+                  <button className="expense-add-btn"
+                    onClick={() => handleEdit(expense, expense.expenseId)}
+                  >
+                    ✓
+                  </button>
+                </div>
+              ) : (
+                <div className="expenses-list">
+                  {/* <button onClick={() => setEditExpense(expense.expenseId)}>
+                    Edit
+                  </button> */}
+                  <a onClick={() => setEditExpense(expense.expenseId)}><img src="/pencil.png" alt="Edit" className="edit-btn" /></a>
+                  {/* <button onClick={() => handleDelete(expense.expenseId)}>
+                    Delete
+                  </button> */}
+                  <a onClick={() => handleDelete(expense.expenseId)}><img src="/trash.png" alt="Delete" className="delete-btn" /></a>
+                  {expense.type} - PHP {expense.amount}
+                
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

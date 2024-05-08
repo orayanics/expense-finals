@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'TelegrafRegular';
+    src: local('TelegrafRegular'), url('/public/TelegrafRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'TelegrafBold';
+    src: local('TelegrafBold'), url('/public/TelegrafBold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+  }
+
+body {
+    background-color: #F6F6F6;
+    font-family: 'TelegrafRegular', sans-serif;
+
+}
+
+h1 {
+    font-weight: 700;
+    padding: 50px 0px 0px 50px;
+}
+
+.date-today {
+    padding-left: 50px;
+}
+
+.expense-input{
+    box-sizing: border-box;
+    border-radius: 13px;
+    border-width: 1px;
+    background-color: #F6F6F6;
+    padding:12px;
+    width:20%;
+    height:15%;
+}
+
+input[type=text] {
+    height:50px;
+    margin-left:50px;
+}
+
+input[type=number] {
+    height:50px;
+    margin-left:10px;
+}
+
+input[type=text],[type=number]::placeholder {
+    font-size:0.8rem;
+}
+
+.expense-add-btn {
+    box-sizing: border-box;
+    border-radius: 13px;
+    border: none;
+    background-color: #222222;
+    color:#F6F6F6;
+    padding:12px;
+    width:50px;
+    height:50px;
+    margin-left:10px;
+}
+
+.expense-add-btn:hover {
+    background-color: black;
+    transition-duration: 0.7s;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.expenses-list {
+    border-radius: 13px;
+    border: none;
+    background-color: #222222;
+    color: #F6F6F6;
+    padding:12px;
+    margin: 20px 0px 20px 18px;
+    width:47%;
+}
+
+.expenses-total {
+    margin-left:50px;
+    text-transform: uppercase;
+}
+
+.edit-btn {
+    width:15px;
+    margin: 0px 10px 0px 10px;
+}
+
+.edit-btn:hover {
+    cursor: pointer;
+    opacity: 50%;
+    transition-duration: 0.5s;
+}
+
+.delete-btn {
+    width:15px;
+    margin: 0px 20px 0px 0px;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+    opacity: 50%;
+    transition-duration: 0.5s;
+}

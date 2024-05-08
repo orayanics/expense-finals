@@ -54,20 +54,22 @@ export default function ExpenseInput() {
       <form onSubmit={handleExpenseSubmit}>
         <input
           type="text"
-          placeholder="Enter Expense Name"
+          placeholder="ENTER DESCRIPTION"
           value={expenseName}
           onChange={(e) => setExpenseName(e.target.value)}
+          className="expense-input"
           required
         />
         <input
           type="number"
-          placeholder="Enter Amount"
+          placeholder="ENTER AMOUNT"
           value={expenseAmount}
           onChange={(e) => setExpenseAmount(e.target.value)}
+          className="expense-input"
           required
         />
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Adding..." : "Add Expense"}
+        <button type="submit" className="expense-add-btn" disabled={isLoading}>
+          {isLoading ? "Adding..." : "+"}
         </button>
       </form>
     </>

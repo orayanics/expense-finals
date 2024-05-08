@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../styles/expense.css';
 
 // Components
 import ExpenseInput from "../components/ExpenseInput";
@@ -16,8 +17,8 @@ export default function Expense() {
     <>
       <div>
         <h1>Expenses</h1>
-        <p>
-          {date.toLocaleDateString("default", {
+        <p className="date-today">
+           {date.toLocaleDateString("default", {
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -36,8 +37,8 @@ export default function Expense() {
         />
       </div>
 
-      <div>
-        <ConditionalMessage condition={!isLoading} message={`Total Amount: ${totalAmount}`} />
+      <div className="expenses-total">
+        <ConditionalMessage condition={!isLoading} message={`Total Amount: PHP ${totalAmount}`} />
       </div>
     </>
   );

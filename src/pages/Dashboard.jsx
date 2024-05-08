@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import ConditionalMessage from "../components/ConditionalMessage";
+import '../styles/expense.css';
 
 export default function Dashboard() {
   const user = JSON.parse(localStorage.getItem("auth"));
@@ -204,7 +205,7 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <h3>Dashboard</h3>
+        <h1>Dashboard</h1>
       </div>
       {userId && (
         <div>
