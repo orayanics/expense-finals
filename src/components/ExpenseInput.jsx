@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getDatabase, ref, push, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
+import { successAlert, errorAlert } from "../utils/toastAlert";
 
 function validateInput(type, amount) {
   const typeRegex = /^[a-zA-Z0-9\s]+$/;
@@ -19,7 +20,7 @@ export default function ExpenseInput() {
     const amount = parseFloat(expenseAmount);
 
     if (!validateInput(expenseName, amount)) {
-      alert("Invalid input. Please enter a valid expense name and amount.");
+      errorAlert("Invalid input. Please enter a valid expense name and amount.")
       return;
     }
 
@@ -38,13 +39,12 @@ export default function ExpenseInput() {
       amount: amount,
     })
       .then(() => {
-        alert("Expense added successfully!");
+        successAlert("Added successfully")
         setExpenseName("");
         setExpenseAmount("");
       })
       .catch((error) => {
-        console.error("Error saving expense: ", error);
-        alert("Failed to add expense. Please try again.");
+        errorAlert("Failed to add expense. Please try again.")
       })
       .finally(() => setIsLoading(false));
   };

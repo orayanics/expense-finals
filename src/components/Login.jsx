@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../components/HowItWorks";
 import "../styles/routes.css";
 
+// Toast
+import { successAlert } from "../utils/toastAlert";
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -16,8 +19,8 @@ export default function Login() {
       photo: res.user.photoURL,
       isAuth: true,
     };
-    console.log(authInfo.userId);
     localStorage.setItem("auth", JSON.stringify(authInfo));
+    successAlert("Login Successful");
     navigate("/dashboard");
   };
 
@@ -44,6 +47,7 @@ export default function Login() {
               Sign in with Google
             </button>
           </div>
+
         </div>
       </div>
     </div>

@@ -1,18 +1,21 @@
 import { useEffect, useState, useCallback } from "react";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  remove,
-  update,
-} from "firebase/database";
+import { getDatabase, ref, onValue, remove, update } from "firebase/database";
 import { getUser } from "../utils/getUser";
+
+// ALERTS AND MODAL
+import { successAlert, errorAlert } from "../utils/toastAlert";
+import { Modal, Button } from "react-bootstrap";
 
 export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   const [expenses, setExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
   const [loading, setLoading] = useState(true);
   const { userId } = getUser();
+
+  // Modals
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [expenseToDelete, setExpenseToDelete] = useState(null); // Store expense to delete
 
   const db = getDatabase();
 
@@ -47,26 +50,43 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   useEffect(() => fetchData(), [fetchData]);
 
   // THIS IS FOR DELETING WOOF
-  // TODO: Add a confirmation dialog before deleting
-  const handleDelete = useCallback(
-    (expenseId) => {
-      remove(ref(db, `users/${userId}/expenses/${expenseId}`));
-    },
-    [db, userId]
-  );
+  const handleDelete = useCallback((expenseId) => {
+    setIsModalOpen(true);
+    setExpenseToDelete(expenseId);
+  }, []);
+
+  const confirmDelete = useCallback(() => {
+    if (expenseToDelete) {
+      remove(ref(db, `users/${userId}/expenses/${expenseToDelete}`));
+      setIsModalOpen(false);
+      setDeleteSuccess(true);
+    }
+  }, [db, userId, expenseToDelete]);
+
+  useEffect(() => {
+    if (deleteSuccess) {
+      successAlert("Expense deleted successfully!");
+      setDeleteSuccess(false);
+    }
+  }, [deleteSuccess]);
 
   // THIS IS FOR EDITING WOOF
   const handleEdit = useCallback(
     (updatedExpense, expenseId) => {
       if (!validateInput(updatedExpense.type, updatedExpense.amount)) {
-        alert("Invalid input. Please enter a valid expense name and amount.");
+        errorAlert(
+          "Invalid input. Please enter a valid expense name and amount."
+        );
         return;
       }
       update(ref(db, `users/${userId}/expenses/${expenseId}`), {
         type: updatedExpense.type,
         amount: updatedExpense.amount,
       })
-        .then(() => setEditExpense(null))
+        .then(() => {
+          setEditExpense(null);
+          successAlert("Edited Successfully");
+        })
         .catch((error) => console.error("Error updating expense: ", error));
     },
     [db, userId]
@@ -74,61 +94,82 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
   return (
     <div>
+      <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Are you sure to delete this item?</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={confirmDelete}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <h2>Expense List</h2>
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <ul>
-          {expenses.map((expense) => (
-            <li key={expense.expenseId}>
-              {editExpense === expense.expenseId ? (
-                <div>
-                  <input
-                    type="text"
-                    value={expense.type}
-                    onChange={(e) =>
-                      setExpenses((prevExpenses) =>
-                        prevExpenses.map((prevExpense) =>
-                          prevExpense.expenseId === expense.expenseId
-                            ? { ...prevExpense, type: e.target.value }
-                            : prevExpense
+        <>
+          <ul>
+            {expenses.map((expense) => (
+              <li key={expense.expenseId}>
+                {editExpense === expense.expenseId ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={expense.type}
+                      onChange={(e) =>
+                        setExpenses((prevExpenses) =>
+                          prevExpenses.map((prevExpense) =>
+                            prevExpense.expenseId === expense.expenseId
+                              ? { ...prevExpense, type: e.target.value }
+                              : prevExpense
+                          )
                         )
-                      )
-                    }
-                  />
-                  <input
-                    type="number"
-                    value={expense.amount}
-                    onChange={(e) =>
-                      setExpenses((prevExpenses) =>
-                        prevExpenses.map((prevExpense) =>
-                          prevExpense.expenseId === expense.expenseId
-                            ? { ...prevExpense, amount: e.target.value }
-                            : prevExpense
+                      }
+                    />
+                    <input
+                      type="number"
+                      value={expense.amount}
+                      onChange={(e) =>
+                        setExpenses((prevExpenses) =>
+                          prevExpenses.map((prevExpense) =>
+                            prevExpense.expenseId === expense.expenseId
+                              ? { ...prevExpense, amount: e.target.value }
+                              : prevExpense
+                          )
                         )
-                      )
-                    }
-                  />
-                  <button
-                    onClick={() => handleEdit(expense, expense.expenseId)}
-                  >
-                    Save
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  Type: {expense.type}, Amount: {expense.amount}
-                  <button onClick={() => setEditExpense(expense.expenseId)}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(expense.expenseId)}>
-                    Delete
-                  </button>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
+                      }
+                    />
+                    <button
+                      onClick={() => handleEdit(expense, expense.expenseId)}
+                    >
+                      Save
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    Type: {expense.type}, Amount: {expense.amount}
+                    <button onClick={() => setEditExpense(expense.expenseId)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(expense.expenseId)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   );
