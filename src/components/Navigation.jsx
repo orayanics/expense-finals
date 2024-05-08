@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { successAlert } from '../utils/toastAlert'
+
+
 import '../styles/navigation.css';
 
 export default function Navigation() {

@@ -3,6 +3,10 @@ import { getDatabase, ref, push, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import { successAlert, errorAlert } from "../utils/toastAlert";
 
+
+import '../styles/expense.css';
+
+
 function validateInput(type, amount) {
   const typeRegex = /^[a-zA-Z0-9\s]+$/;
   const isTypeValid = typeRegex.test(type);
