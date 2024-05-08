@@ -31,9 +31,9 @@ export default function Login() {
             </a>
           </div>
         </b>
-        <a href="./how-it-works"> HOW IT WORKS</a>
-        <a href="./faqs"> FAQS </a>
-        <a href="./contact"> CONTACT </a>
+        <a href="/how"> HOW IT WORKS</a>
+        <a href="/faqs"> FAQS </a>
+        <a href="/contact"> CONTACT </a>
       </div>
       <div id="moving">
         <div className="d-flex align-content-center justify-content-center min-vh-100">
