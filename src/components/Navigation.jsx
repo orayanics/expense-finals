@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { successAlert } from '../utils/toastAlert'
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function Navigation() {
   const logout = async () => {
     await signOut(auth);
     localStorage.removeItem("auth");
+    successAlert("Logout successful")
     navigate("/");
   };
 
