@@ -28,16 +28,16 @@ export default function Dashboard() {
     );
   }, [userId]);
 
+  // START OF GETTING CURRENT WEEK
   const { startOfWeek, endOfWeek } = useMemo(() => {
     let now = new Date();
-    // Adjusting for the scenario when today is Sunday (getDay() === 0)
-    let day = now.getDay() || 7; // Make Sunday a 7 instead of 0
-    if (day !== 1) now.setHours(-24 * (day - 1)); // Only move days if not Monday
-    now.setHours(0, 0, 0, 0); // Start of the week
+    let day = now.getDay() || 7; 
+    if (day !== 1) now.setHours(-24 * (day - 1)); 
+    now.setHours(0, 0, 0, 0); 
 
     let end = new Date(now);
-    end.setDate(now.getDate() + 6); // Next 6 days to get to the end of the week
-    end.setHours(23, 59, 59, 999); // End of the week
+    end.setDate(now.getDate() + 6); 
+    end.setHours(23, 59, 59, 999); 
 
     return { startOfWeek: now, endOfWeek: end };
   }, []);
@@ -50,7 +50,112 @@ export default function Dashboard() {
       }).length,
     [expenses, startOfWeek, endOfWeek]
   );
+  // END OF CURRENT WEEK
 
+  // START OF PREVIOUS WEEK
+  const { startOfPrevWeek, endOfPrevWeek } = useMemo(() => {
+    let now = new Date();
+    let day = now.getDay() || 7;
+    if (day !== 1) now.setHours(-24 * (day - 1));
+    now.setHours(0, 0, 0, 0); // Start of the week
+    now.setDate(now.getDate() - 7); // Go back one week
+    let end = new Date(now);
+    end.setDate(now.getDate() + 6);
+    end.setHours(23, 59, 59, 999); // End of the week
+    return { startOfPrevWeek: now, endOfPrevWeek: end };
+  }, []);
+
+  const expensesOfPrevWeek = useMemo(
+    () =>
+      expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startOfPrevWeek && expenseDate <= endOfPrevWeek;
+      }).length,
+    [expenses, startOfPrevWeek, endOfPrevWeek]
+  );
+  // END OF PREVIOUS WEEK
+
+  // START OF CURRENT MONTH
+  const { startOfMonth, endOfMonth } = useMemo(() => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), 1);
+    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    start.setHours(0, 0, 0, 0); // Start of the month
+    end.setHours(23, 59, 59, 999); // End of the month
+    return { startOfMonth: start, endOfMonth: end };
+  }, []);
+
+  const expensesOfCurrentMonth = useMemo(
+    () =>
+      expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
+      }).length,
+    [expenses, startOfMonth, endOfMonth]
+  );
+  // END OF CURRENT MONTH
+
+  // START OF CURRENT DATE
+  const { startOfCurrentDate, endOfCurrentDate } = useMemo(() => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const end = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
+    return { startOfCurrentDate: start, endOfCurrentDate: end };
+  }, []);
+
+  const expensesOfCurrentDate = useMemo(
+    () =>
+      expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return (
+          expenseDate >= startOfCurrentDate && expenseDate <= endOfCurrentDate
+        );
+      }).length,
+    [expenses, startOfCurrentDate, endOfCurrentDate]
+  );
+  // END OF CURRENT DATE
+
+  // START OF YESTERDAY
+  const { startOfYesterday, endOfYesterday } = useMemo(() => {
+    const now = new Date();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    const start = new Date(
+      yesterday.getFullYear(),
+      yesterday.getMonth(),
+      yesterday.getDate()
+    );
+    const end = new Date(
+      yesterday.getFullYear(),
+      yesterday.getMonth(),
+      yesterday.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
+    return { startOfYesterday: start, endOfYesterday: end };
+  }, []);
+
+  const expensesOfYesterday = useMemo(
+    () =>
+      expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startOfYesterday && expenseDate <= endOfYesterday;
+      }).length,
+    [expenses, startOfYesterday, endOfYesterday]
+  );
+  // END OF YESTERDAY
+
+  console.log(expensesOfPrevWeek)
   return (
     <>
       <div>
@@ -62,10 +167,28 @@ export default function Dashboard() {
           {isLoading ? (
             <h5>Loading...</h5>
           ) : (
-            <ConditionalMessage
-              condition={countExpensesThisWeek > 0}
-              message={`You have ${countExpensesThisWeek} expenses this week.`}
-            />
+            <>
+              <ConditionalMessage
+                condition={countExpensesThisWeek > 0}
+                message={`You have ${countExpensesThisWeek} expenses this week.`}
+              />
+              <ConditionalMessage
+                condition={expensesOfPrevWeek > 0}
+                message={`You have ${expensesOfPrevWeek} expense/s last week.`}
+              />
+              <ConditionalMessage
+                condition={expensesOfCurrentMonth > 0}
+                message={`You have ${expensesOfCurrentMonth} this month.`}
+              />
+              <ConditionalMessage
+                condition={expensesOfCurrentDate > 0}
+                message={`You have ${expensesOfCurrentDate} expenses today.`}
+              />
+              <ConditionalMessage
+                condition={expensesOfYesterday > 0}
+                message={`You bought ${expensesOfYesterday} items yesterday.`}
+              />
+            </>
           )}
         </div>
       )}
