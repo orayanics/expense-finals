@@ -3,14 +3,18 @@ import "../styles/routes.css";
 function Contact() {
   return (
     <div className="contact">
-      <header>
-        <h1>MoneyDaddy</h1>
-        <nav>
-          <a href="./how-it-works">HOW IT WORKS</a>
-          <a href="./faqs">FAQS</a>
-          <a href="./contact">CONTACT</a>
-        </nav>
-      </header>
+      <div className="topnav">
+        <b className="navbar-brand" href="/">
+          <div className="logo-image">
+            <a href="/">
+              <img src="imagee#" alt="MoneyDaddy" width="180" />
+            </a>
+          </div>
+        </b>
+        <a href="/how"> HOW IT WORKS</a>
+        <a href="/faqs"> FAQS </a>
+        <a href="/contact"> CONTACT </a>
+      </div>
       <main>
         <h2>Contact us</h2>
         <p>

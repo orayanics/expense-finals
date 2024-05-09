@@ -14,6 +14,8 @@ import AuthProvider from "./components/AuthProvider";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import HowItWorks from "./components/HowItWorks";
+import Faqs from "./components/Faqs";
+import Contact from "./components/Contact";
 
 // React Router
 const router = createBrowserRouter([
@@ -40,14 +42,14 @@ const router = createBrowserRouter([
     path: "/how",
     element: <HowItWorks />,
   },
-  // {
-  //   path: "/faqs",
-  //   element: <HowItWorks />,
-  // },
-  // {
-  //   path: "/contact",
-  //   element: <HowItWorks />,
-  // },
+  {
+    path: "/faqs",
+    element: <Faqs />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
 ]);
 
 
