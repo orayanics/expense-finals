@@ -13,6 +13,7 @@ import Expense from "./pages/Expense";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
+import HowItWorks from "./components/HowItWorks";
 
 // React Router
 const router = createBrowserRouter([
@@ -35,9 +36,17 @@ const router = createBrowserRouter([
 
     ],
   },
+  {
+    path: "/how",
+    element: <HowItWorks />,
+  },
   // {
-  //   path: "/Howbaito?",
-  //   element: <How it Works? />,
+  //   path: "/faqs",
+  //   element: <HowItWorks />,
+  // },
+  // {
+  //   path: "/contact",
+  //   element: <HowItWorks />,
   // },
 ]);
 

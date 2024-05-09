@@ -9,6 +9,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [expenses, setExpenses] = useState([]);
 
+  // Fetching Data
   useEffect(() => {
     const db = getDatabase();
     setIsLoading(true);
@@ -51,14 +52,14 @@ export default function Dashboard() {
     [expenses, startOfWeek, endOfWeek]
   );
 
-    const totalThisWeek = useMemo(
-      () =>
-        countExpensesThisWeek.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
-      [countExpensesThisWeek]
-    );
+  const totalThisWeek = useMemo(
+    () =>
+      countExpensesThisWeek.reduce(
+        (total, expense) => total + Number(expense.amount),
+        0
+      ),
+    [countExpensesThisWeek]
+  );
   // END OF CURRENT WEEK
 
   // START OF PREVIOUS WEEK
@@ -83,14 +84,14 @@ export default function Dashboard() {
     [expenses, startOfPrevWeek, endOfPrevWeek]
   );
 
-    const totalPrevWeek = useMemo(
-      () =>
-        expensesOfPrevWeek.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
-      [expensesOfPrevWeek]
-    );
+  const totalPrevWeek = useMemo(
+    () =>
+      expensesOfPrevWeek.reduce(
+        (total, expense) => total + Number(expense.amount),
+        0
+      ),
+    [expensesOfPrevWeek]
+  );
   // END OF PREVIOUS WEEK
 
   // START OF CURRENT MONTH
@@ -112,14 +113,14 @@ export default function Dashboard() {
     [expenses, startOfMonth, endOfMonth]
   );
 
-    const totalCurrMonth = useMemo(
-      () =>
-        expensesOfCurrentMonth.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
-      [expensesOfCurrentMonth]
-    );
+  const totalCurrMonth = useMemo(
+    () =>
+      expensesOfCurrentMonth.reduce(
+        (total, expense) => total + Number(expense.amount),
+        0
+      ),
+    [expensesOfCurrentMonth]
+  );
   // END OF CURRENT MONTH
 
   // START OF CURRENT DATE
@@ -190,14 +191,14 @@ export default function Dashboard() {
     [expenses, startOfYesterday, endOfYesterday]
   );
 
-    const totalYesterday = useMemo(
-      () =>
-        expensesOfYesterday.reduce(
-          (total, expense) => total + Number(expense.amount),
-          0
-        ),
-      [expensesOfYesterday]
-    );
+  const totalYesterday = useMemo(
+    () =>
+      expensesOfYesterday.reduce(
+        (total, expense) => total + Number(expense.amount),
+        0
+      ),
+    [expensesOfYesterday]
+  );
   // END OF YESTERDAY
 
   return (
