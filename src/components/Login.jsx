@@ -1,7 +1,6 @@
 import { auth, provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "../components/HowItWorks";
 import "../styles/routes.css";
 
 export default function Login() {
