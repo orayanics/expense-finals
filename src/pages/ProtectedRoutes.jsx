@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/routes.css";
+import "../styles/accordion.css";
 
 const ProtectedRoutes = () => {
   const auth = JSON.parse(localStorage.getItem("auth"));
