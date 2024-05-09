@@ -4,23 +4,27 @@ import { useNavigate } from "react-router-dom";
 import "../styles/routes.css";
 
 // Toast
-import { successAlert } from "../utils/toastAlert";
+import { successAlert, errorAlert } from "../utils/toastAlert";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const signIn = async () => {
-    const res = await signInWithPopup(auth, provider);
-    const authInfo = {
-      userId: res.user.uid,
-      email: res.user.email,
-      name: res.user.displayName,
-      photo: res.user.photoURL,
-      isAuth: true,
-    };
-    localStorage.setItem("auth", JSON.stringify(authInfo));
-    successAlert("Login Successful");
-    navigate("/dashboard");
+    try {
+      const res = await signInWithPopup(auth, provider);
+      const authInfo = {
+        userId: res.user.uid,
+        email: res.user.email,
+        name: res.user.displayName,
+        photo: res.user.photoURL,
+        isAuth: true,
+      };
+      localStorage.setItem("auth", JSON.stringify(authInfo));
+      successAlert("Login Successful");
+      navigate("/dashboard");
+    } catch (error) {
+      errorAlert("There seems to be a problem. Please try again.");
+    }
   };
 
   return (

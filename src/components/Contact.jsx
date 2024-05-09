@@ -1,4 +1,3 @@
-import "../styles/routes.css";
 function Contact() {
   return (
     <div className="contact">
@@ -14,7 +13,7 @@ function Contact() {
         <a href="/faqs"> FAQS </a>
         <a href="/contact"> CONTACT </a>
       </div>
-      <main>
+      <main className="contact-container">
         <h2>Contact us</h2>
         <p>
           Thank you for your interest in our expense tracking platform. We are

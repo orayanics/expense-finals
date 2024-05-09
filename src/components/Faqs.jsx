@@ -1,4 +1,3 @@
-import "../styles/routes.css";
 import { Accordion } from "react-bootstrap";
 
 function Faqs() {
@@ -17,12 +16,11 @@ function Faqs() {
         <a href="/contact"> CONTACT </a>
       </div>
       <main className="App-main">
-        <section className="App-faq">
-          <h2>Frequently Asked Questions</h2>
-          <Accordion>
-            <Accordion.Item eventKey="1">
+          <h1>Frequently Asked Questions</h1>
+          <Accordion className="custom-accordion">
+            <Accordion.Item eventKey="0">
               <Accordion.Header>
-                1. What is an expense tracking website, and why should I use
+                What is an expense tracking website, and why should I use
                 one?
               </Accordion.Header>
               <Accordion.Body>
@@ -33,10 +31,10 @@ function Faqs() {
             </Accordion.Item>
           </Accordion>
 
-          <Accordion>
+          <Accordion className="custom-accordion">
             <Accordion.Item eventKey="1">
               <Accordion.Header>
-                2. Is my financial information safe on this website?
+                Is my financial information safe on this website?
               </Accordion.Header>
               <Accordion.Body>
                 Yes, we take the security of your financial information
@@ -46,10 +44,10 @@ function Faqs() {
             </Accordion.Item>
           </Accordion>
 
-          <Accordion>
+          <Accordion className="custom-accordion">
             <Accordion.Item eventKey="2">
               <Accordion.Header>
-                3. Can I sync my bank accounts and credit cards with this
+                Can I sync my bank accounts and credit cards with this
                 website?
               </Accordion.Header>
               <Accordion.Body>
@@ -59,10 +57,10 @@ function Faqs() {
             </Accordion.Item>
           </Accordion>
 
-          <Accordion>
+          <Accordion className="custom-accordion">
             <Accordion.Item eventKey="3">
               <Accordion.Header>
-                4. Can I create custom categories for my expenses?
+                Can I create custom categories for my expenses?
               </Accordion.Header>
               <Accordion.Body>
                 Yes, you can create custom categories to suit your specific
@@ -71,10 +69,10 @@ function Faqs() {
             </Accordion.Item>
           </Accordion>
 
-          <Accordion>
+          <Accordion className="custom-accordion">
             <Accordion.Item eventKey="4">
               <Accordion.Header>
-                5. How does budgeting work on this website?
+                How does budgeting work on this website?
               </Accordion.Header>
               <Accordion.Body>
                 You can set spending limits for different categories and receive
@@ -82,10 +80,9 @@ function Faqs() {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-        </section>
       </main>
-      <a href="./Login" className="back-to-home">
-        Back to Home
+      <a href="/" className="back-to-home">
+        <button>Back to Home</button>
       </a>
     </div>
   );
