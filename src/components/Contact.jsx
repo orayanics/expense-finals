@@ -1,5 +1,4 @@
 import "../styles/routes.css";
-
 function Contact() {
   return (
     <div className="contact">
