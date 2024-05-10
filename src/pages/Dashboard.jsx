@@ -205,35 +205,50 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <h1>Dashboard</h1>
+        <h1>Welcome back, {user.name}</h1>
       </div>
       {userId && (
         <div>
-          <img src={user.photo} alt={user.name} />
+          <img src={user.photo} alt={user.name} className="user-photo"/>
           {isLoading ? (
             <h5>Loading...</h5>
           ) : (
             <>
-              <ConditionalMessage
-                condition={countExpensesThisWeek.length > 0}
-                message={`You have ${countExpensesThisWeek.length} expenses this week. Total: ${totalThisWeek}`}
-              />
-              <ConditionalMessage
-                condition={expensesOfPrevWeek.length > 0}
-                message={`You have ${expensesOfPrevWeek.length} expense/s last week. Total: ${totalPrevWeek}`}
-              />
-              <ConditionalMessage
-                condition={expensesOfCurrentMonth.length > 0}
-                message={`You have ${expensesOfCurrentMonth.length} this month. ${totalCurrMonth}`}
-              />
+            <h2>Today</h2>
+            <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfCurrentDate.length > 0}
-                message={`You have ${expensesOfCurrentDate.length} expenses today. Total: ${totalCurrent}`}
+                message={`You have ${expensesOfCurrentDate.length} expenses today - TOTAL: ${totalCurrent}`}
               />
+              </div>
+              <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfYesterday.length > 0}
-                message={`You bought ${expensesOfYesterday.length} items yesterday. Total: ${totalYesterday}`}
+                message={`You bought ${expensesOfYesterday.length} items yesterday - TOTAL: ${totalYesterday}`}
               />
+              </div>
+            <h2>This Week</h2>
+            <div className="dashboard-exp">
+              <ConditionalMessage
+                condition={countExpensesThisWeek.length > 0}
+                message={`You have ${countExpensesThisWeek.length} expenses this week - TOTAL: ${totalThisWeek}`}
+              />
+            </div>
+            <h2>Last Week</h2>
+            <div className="dashboard-exp">
+              <ConditionalMessage
+                condition={expensesOfPrevWeek.length > 0}
+                message={`You have ${expensesOfPrevWeek.length} expense/s last week - TOTAL: ${totalPrevWeek}`}
+              />
+              </div>
+              <h2>This Month</h2>
+              <div className="dashboard-exp">
+              <ConditionalMessage
+                condition={expensesOfCurrentMonth.length > 0}
+                message={`You have ${expensesOfCurrentMonth.length} expenses this month - TOTAL: ${totalCurrMonth}`}
+              />
+              </div>
+            
             </>
           )}
         </div>

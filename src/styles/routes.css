@@ -19,7 +19,11 @@ body {
 
 /*login */
 .text1 {
+  text-align: center;
   font-size: 90px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
 }
 
 .text2 {
