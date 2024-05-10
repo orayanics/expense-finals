@@ -96,11 +96,11 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     <div>
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Delete Expense</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Are you sure to delete this item?</p>
+          <p>Are you sure to delete this expense?</p>
         </Modal.Body>
 
         <Modal.Footer>
@@ -115,7 +115,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
       <h2>Expense List</h2>
       {loading ? (
-        <div>Loading...</div>
+        <h5>Loading...</h5>
       ) : (
         <>
           <ul>

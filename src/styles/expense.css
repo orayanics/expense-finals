@@ -114,10 +114,12 @@ ul {
     transition-duration: 0.5s;
 }
 
-
-
 .user-photo {
     margin-left:50px;
+    border-radius: 50%;
+    width: 100px;
+    object-fit: cover;
+    filter: grayscale(100%);
 }
 
 .dashboard-exp {
@@ -127,5 +129,9 @@ ul {
     color: #F6F6F6;
     padding:12px;
     margin: 20px 0px 20px 50px;
-    width:47%;
+    width:60%;
+}
+
+h5 {
+    margin: 20px 0px 0px 50px;
 }
