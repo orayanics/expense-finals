@@ -2,8 +2,6 @@ import { useState } from "react";
 import { getDatabase, ref, push, set } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import { successAlert, errorAlert } from "../utils/toastAlert";
-
-
 import '../styles/expense.css';
 
 
