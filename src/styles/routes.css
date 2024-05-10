@@ -19,13 +19,13 @@ body {
 
 /*login */
 .text1 {
+  text-align: center;
   font-size: 90px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
 }
 
-.text2 {
-  font-weight: bold;
-  font-size: 90px;
-}
 
 .signin {
   border-radius: 20px;
@@ -44,6 +44,20 @@ body {
 }
 
 /* navbar */
+.moneydaddy-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.moneydaddy-text {
+  margin-left: 5px; /* Adjust as needed */
+  font-family: 'TelegrafBold';
+  src: local('TelegrafBold'), url('/public/TelegrafBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 .topnav {
   background-color: #f4f4f4;
   overflow: hidden;
@@ -69,12 +83,21 @@ body {
 }
 
 #moving {
+  position: absolute;
+  left: 520px; 
+  transform: translate(-50%, -50%);
   animation-name: float;
   animation-duration: 2s;
   animation-direction: alternate-reverse;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+.coin-img {
+  width: 55.8%; 
+  height: auto; 
+}
+
 
 @keyframes float {
   0% {

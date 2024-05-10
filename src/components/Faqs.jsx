@@ -6,8 +6,9 @@ function Faqs() {
       <div className="topnav">
         <b className="navbar-brand" href="/">
           <div className="logo-image">
-            <a href="/">
-              <img src="imagee#" alt="MoneyDaddy" width="180" />
+            <a href="/" class="moneydaddy-link">
+              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
+              <span class="moneydaddy-text">MoneyDaddy</span>
             </a>
           </div>
         </b>

@@ -32,8 +32,9 @@ export default function Login() {
       <div className="topnav">
         <b className="navbar-brand" href="/">
           <div className="logo-image">
-            <a href="homepage.php">
-              <img src="imagee#" alt="MoneyDaddy" width="180" />
+            <a href="/" class="moneydaddy-link">
+              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
+              <span class="moneydaddy-text">MoneyDaddy</span>
             </a>
           </div>
         </b>
@@ -41,18 +42,19 @@ export default function Login() {
         <a href="/faqs"> FAQS </a>
         <a href="/contact"> CONTACT </a>
       </div>
-      <div id="moving">
-        <div className="d-flex align-content-center justify-content-center min-vh-100">
-          <div className="align-self-center d-flex flex-column ">
-            <h1 className="text1">Control Your Cash</h1>
-            <h1 className="text2">Shape Your Future</h1>
-            <button className="signin" onClick={signIn}>
-              Sign in with Google
-            </button>
+          <div id="moving">
+            <img src="COINS.png" alt="coin"  class="coin-img" />
           </div>
-
+            <div className="d-flex align-content-center justify-content-center min-vh-100">
+            <div className="align-self-center d-flex flex-column ">
+              <h1 className="text1">Control Your Cash
+              <span><strong>Shape Your Future</strong></span></h1>
+              <button className="signin" onClick={signIn}>
+              Sign in with Google
+              </button>
+            </div>
         </div>
-      </div>
+      
     </div>
   );
 }
