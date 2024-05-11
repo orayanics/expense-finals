@@ -1,11 +1,12 @@
 import { auth, provider } from "../utils/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import "../styles/routes.css";
+import "../styles/login.css";
 
 // Toast
 import { successAlert, errorAlert } from "../utils/toastAlert";
-
+import GeneralNav from "./../components/GeneralNav";
+import Footer from "./../components/Footer";
 export default function Login() {
   const navigate = useNavigate();
 
@@ -28,33 +29,31 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <div className="topnav">
-        <b className="navbar-brand" href="/">
-          <div className="logo-image">
-            <a href="/" class="moneydaddy-link">
-              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
-              <span class="moneydaddy-text">MoneyDaddy</span>
-            </a>
+    <div className="login">
+      <div className="login-container">
+        <GeneralNav />
+
+        <div>
+          <div className="moving">
+            <img src="COINS.png" alt="coin" class="coin-img" />
           </div>
-        </b>
-        <a href="/how"> HOW IT WORKS</a>
-        <a href="/faqs"> FAQS </a>
-        <a href="/contact"> CONTACT </a>
-      </div>
-          <div id="moving">
-            <img src="COINS.png" alt="coin"  class="coin-img" />
-          </div>
-            <div className="d-flex align-content-center justify-content-center min-vh-100">
+          <div className="d-flex align-content-center justify-content-center">
             <div className="align-self-center d-flex flex-column ">
-              <h1 className="text1">Control Your Cash
-              <span><strong>Shape Your Future</strong></span></h1>
+              <h1 className="text1">
+                Control Your Cash
+                <span>
+                  <strong>Shape Your Future</strong>
+                </span>
+              </h1>
               <button className="signin" onClick={signIn}>
-              Sign in with Google
+                Sign in with Google
               </button>
             </div>
+          </div>
         </div>
-      
+
+        <Footer />
+      </div>
     </div>
   );
 }

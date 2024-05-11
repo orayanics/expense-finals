@@ -1,0 +1,16 @@
+.how {
+  height: 100vh;
+}
+
+.how-container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.how-accordion {
+    width: 80%;
+    padding: 5%;
+}

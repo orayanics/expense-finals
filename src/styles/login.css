@@ -1,0 +1,84 @@
+/*login */
+.text1 {
+  text-align: center;
+  font-size: 90px;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+}
+
+.signin {
+  border-radius: 20px;
+  background-color: #373737;
+  color: #fff;
+  width: fit-content; /* Or use width: auto; */
+  margin: auto;
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.5 ease;
+}
+
+.signin:hover {
+  background-color: black;
+}
+
+/* navbar */
+.moneydaddy-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.moneydaddy-text {
+  margin-left: 5px; /* Adjust as needed */
+  font-family: 'TelegrafBold';
+  src: local('TelegrafBold'), url('/public/TelegrafBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.moving {
+  animation-name: float;
+  animation-duration: 2s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coin-img {
+  width: 55.8%; 
+  height: auto; 
+}
+
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 10px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}
+
+h1 {
+  font-weight: bold;
+}
+
+.login {
+    height: 100vh;
+}
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}

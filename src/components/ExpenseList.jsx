@@ -113,9 +113,9 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
-      <h2>Expense List</h2>
+      <h2 className="h2">Expense List</h2>
       {loading ? (
-        <h5>Loading...</h5>
+        <h5 className="h5">Loading...</h5>
       ) : (
         <>
           <ul>

@@ -1,28 +1,19 @@
 import { Accordion } from "react-bootstrap";
+import GeneralNav from "./GeneralNav";
+import Footer from "./Footer";
+import "../styles/faq.css";
 
 function Faqs() {
   return (
     <div className="faqs">
-      <div className="topnav">
-        <b className="navbar-brand" href="/">
-          <div className="logo-image">
-            <a href="/" class="moneydaddy-link">
-              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
-              <span class="moneydaddy-text">MoneyDaddy</span>
-            </a>
-          </div>
-        </b>
-        <a href="/how"> HOW IT WORKS</a>
-        <a href="/faqs"> FAQS </a>
-        <a href="/contact"> CONTACT </a>
-      </div>
-      <main className="App-main">
+      <div className="faq-container">
+        <GeneralNav />
+        <div className="faq-accordion">
           <h1>Frequently Asked Questions</h1>
           <Accordion className="custom-accordion">
             <Accordion.Item eventKey="0">
               <Accordion.Header>
-                What is an expense tracking website, and why should I use
-                one?
+                What is an expense tracking website, and why should I use one?
               </Accordion.Header>
               <Accordion.Body>
                 An expense-tracking website helps you monitor and manage your
@@ -48,8 +39,7 @@ function Faqs() {
           <Accordion className="custom-accordion">
             <Accordion.Item eventKey="2">
               <Accordion.Header>
-                Can I sync my bank accounts and credit cards with this
-                website?
+                Can I sync my bank accounts and credit cards with this website?
               </Accordion.Header>
               <Accordion.Body>
                 Yes, you can connect your bank accounts and credit cards to
@@ -81,10 +71,12 @@ function Faqs() {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-      </main>
-      <a href="/" className="back-to-home">
-        <button>Back to Home</button>
-      </a>
+        </div>
+        <a href="/" className="back-to-home">
+          <button>Back to Home</button>
+        </a>
+        <Footer />
+      </div>
     </div>
   );
 }

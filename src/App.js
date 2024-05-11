@@ -10,7 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 // Import Pages
 import Dashboard from "./pages/Dashboard";
 import Expense from "./pages/Expense";
-import AuthProvider from "./components/AuthProvider";
+import Login from "./pages/Login";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import HowItWorks from "./components/HowItWorks";
@@ -21,7 +21,7 @@ import Contact from "./components/Contact";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AuthProvider />,
+    element: <Login />,
     errorElement: <NotFound />,
   },
   {

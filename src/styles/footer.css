@@ -1,0 +1,14 @@
+.contact-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 20px;
+  padding: 10px;
+  .bi-facebook,
+  .bi-instagram,
+  .bi-twitter,
+  .bi-tiktok {
+    color: black;
+  }
+}

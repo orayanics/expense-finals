@@ -16,7 +16,7 @@ export default function Expense() {
   return (
     <>
       <div>
-        <h1>Expenses</h1>
+        <h1 className="h1">Expenses</h1>
         <p className="date-today">
            {date.toLocaleDateString("default", {
             month: "long",
