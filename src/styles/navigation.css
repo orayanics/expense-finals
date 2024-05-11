@@ -1,36 +1,50 @@
-.logo {
-    height:20px;
-    margin: 2px 5px 0 0;
+.nav-container {
+    display: flex;
+    flex-direction: column;
 }
 
 nav {
     background-color: #222222;
-    padding: 0;
-    margin: 0;
-    width: 300px;
+    color: #fff;
+    width: 280px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    padding:20px;
 }
 
 .nav-btn {
     text-transform: uppercase;
     color: #f6f6f6;
-    font-weight:700;
+    font-weight: 700;
+    padding: 0px;
+    letter-spacing: 2px;
 }
 
 .nav-btn:hover {
-    cursor: pointer;
-    opacity: 50%;
-    transition-duration: 0.5s;
+    opacity: 0.5; /* Adjust opacity on hover */
+    transition-duration: 0.7s;
+}
+
+.logo {
+    height: 25px;
+    margin-right:7px;
 }
 
 .logo-container {
     display: flex;
-    margin: 20px 0 0 0;
+    align-items: center;
+    margin: 0px 0;
 }
 
 .moneydaddy-tl {
-    color:#f6f6f6;
+    color: #f6f6f6;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 30px;
+    margin-top:20px
 }
 
 a {
@@ -38,17 +52,39 @@ a {
 }
 
 .logout-btn {
+    width:200px;
     background-color: #f6f6f6;
-    color:#222222;
+    color: #222222;
     text-transform: uppercase;
     font-size: 0.8rem;
     font-weight: 700;
-    border-radius: 13px;
-    border:none;
-    width:50%;
+    border-radius: 30px;
+    border: none;
+    padding: 7px;
+    margin-bottom:20px;
+    align-items: center;
 }
 
 .logout-btn:hover {
-    opacity: 50%;
+    opacity: 0.5; /* Adjust opacity on hover */
     transition-duration: 0.7s;
+}
+
+/* RESPONSIVENESS CHUCHU */
+@media only screen and (max-width: 768px) {
+    nav {
+        width: 100%; 
+        height: auto; 
+        position: static; 
+        overflow-y: initial;
+        padding-bottom: 0px;
+    }
+
+    .nav-btn {
+        padding: 10px;
+    }
+
+    .logo-container {
+        margin: 0;
+    }
 }

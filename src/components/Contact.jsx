@@ -1,6 +1,7 @@
 function Contact() {
   return (
-    <div className="contact">
+    <>
+        <div className="contact">
       <div className="topnav">
         <b className="navbar-brand" href="/">
           <div className="logo-image">
@@ -27,20 +28,41 @@ function Contact() {
             For general inquiries, technical support, or assistance with using
             our platform, please contact our customer support team.
           </p>
-          <ul>
-            <li>
-              Live Chat: Click the chat icon in the bottom right corner of your
-              screen to chat with a support representative in real-time during
-              our business hours.
-            </li>
-            <li>
-              Email: Send us an email at support@exampleexpensewebsite.com, and
-              we will respond to your inquiry as soon as possible.
-            </li>
-          </ul>
-        </section>
-      </main>
-    </div>
+          <section>
+            <h3 className="contact-headers">Connect With Us</h3>
+            <p className="contact-text">
+              For general inquiries, technical support, or assistance with using
+              our platform, please contact our customer support team.
+            </p>
+            <div className="contact-text">
+              <p>
+                Social Media: Stay updated and engaged with our latest news,
+                offers, and events by following us on social medias.
+              </p>
+              <p>
+                Email: Send us an email at support@exampleexpensewebsite.com,
+                and we will respond to your inquiry as soon as possible.
+              </p>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer className="contact-footer">
+        <a href="https://www.facebook.com/site.ust">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/geloflmno/">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://twitter.com/t0hyang">
+          <i class="bi bi-twitter"></i>
+        </a>
+        <a href="https://www.tiktok.com/@bkluxuryph">
+          <i class="bi bi-tiktok"></i>
+        </a>
+      </footer>
+    </>
   );
 }
 

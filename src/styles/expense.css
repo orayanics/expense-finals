@@ -25,6 +25,7 @@ h1 {
 
 h2 {
     margin: 30px 0px 0px 50px;
+    font-weight: bold;
 }
 
 .date-today {
@@ -111,4 +112,26 @@ ul {
     cursor: pointer;
     opacity: 50%;
     transition-duration: 0.5s;
+}
+
+.user-photo {
+    margin-left:50px;
+    border-radius: 50%;
+    width: 100px;
+    object-fit: cover;
+    filter: grayscale(100%);
+}
+
+.dashboard-exp {
+    border-radius: 13px;
+    border: none;
+    background-color: #222222;
+    color: #F6F6F6;
+    padding:12px;
+    margin: 20px 0px 20px 50px;
+    width:60%;
+}
+
+h5 {
+    margin: 20px 0px 0px 50px;
 }
