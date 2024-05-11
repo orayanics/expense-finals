@@ -13,9 +13,9 @@ import Expense from "./pages/Expense";
 import Login from "./pages/Login";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
-import HowItWorks from "./components/HowItWorks";
-import Faqs from "./components/Faqs";
-import Contact from "./components/Contact";
+import HowItWorks from "./pages/HowItWorks";
+import Faqs from "./pages/Faqs";
+import Contact from "./pages/Contact";
 
 // React Router
 const router = createBrowserRouter([

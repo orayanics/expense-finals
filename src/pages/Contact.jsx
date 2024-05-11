@@ -1,5 +1,5 @@
-import GeneralNav from "./GeneralNav";
-import Footer from "./Footer";
+import GeneralNav from "../components/GeneralNav";
+import Footer from "../components/Footer";
 import "../styles/contact.css";
 
 function Contact() {

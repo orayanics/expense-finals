@@ -1,6 +1,6 @@
 import { Accordion } from "react-bootstrap";
-import GeneralNav from "./GeneralNav";
-import Footer from "./Footer";
+import GeneralNav from "../components/GeneralNav";
+import Footer from "../components/Footer";
 import "../styles/faq.css";
 
 function Faqs() {
