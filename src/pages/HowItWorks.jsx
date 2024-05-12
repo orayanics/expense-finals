@@ -51,7 +51,7 @@ function HowItWorks() {
           </Accordion>
         </main>
 
-        <a href="./Login" className="back-to-home">
+        <a href="/" className="back-to-home">
           <button>Back to Home</button>
         </a>
         <Footer />
