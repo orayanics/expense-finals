@@ -13,16 +13,19 @@ const ProtectedRoutes = () => {
   }
 
   return (
-    <Container fluid>
+    <div className="container-height">
+    <Container fluid >
       <Row>
-        <Col xs={12} lg={2} className="bg-light pt-3 navigation-col">
+        <Col xs={12} lg={2} className="pt-2 navigation-col">
           <Navigation />
         </Col>
-        <Col xs={12} lg={10} className="pt-3 overflow-auto">
+        <Col xs={12} lg={10} className="pt-2 overflow-auto">
           <Outlet />
         </Col>
       </Row>
     </Container>
+    </div>
+
   );
 };
 

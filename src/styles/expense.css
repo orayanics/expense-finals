@@ -16,7 +16,6 @@
 body {
   background-color: #f6f6f6;
   font-family: "TelegrafRegular", sans-serif;
-  margin-bottom:50px;
 }
 
 .h1 {
@@ -124,7 +123,7 @@ ul {
   margin: 20px 0px 0px 50px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .expenses-list {
     margin: 0px 0px 20px 20px; /* Adjusted margin for smaller screens */
     max-width: 90%; /* Allow element to take full width on smaller screens */

@@ -16,7 +16,6 @@
 body {
   background-color: #f6f6f6;
   font-family: "TelegrafRegular", sans-serif;
-  margin-bottom: 50px;
 }
 
 .dashboard-title {
@@ -71,7 +70,7 @@ h6 {
 }
 
 /* Media Query for Responsiveness */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .dashboard-exp {
     margin: 0px 50px 20px 20px; /* Adjusted margin for smaller screens */
     max-width: 90%; /* Allow element to take full width on smaller screens */

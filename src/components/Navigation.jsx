@@ -23,23 +23,26 @@ export default function Navigation() {
   return (
     <>
       <nav>
-      <div className="nav-container">
-        <div className="logo-container">
-          <img src="MONEYDADDY-2.png" alt="logo" className="logo"></img><p className="moneydaddy-tl">MoneyDaddy</p>
-        </div>
-        <button onClick={logout} className="logout-btn">Logout</button>
-        
-        <div>
-          <a href={`/dashboard`} className="">
-            <p className="nav-btn">Dashboard</p>
-          </a>
+        <div className="nav-container">
+          <div className="logo-container">
+            <img src="MONEYDADDY-2.png" alt="logo" className="logo"></img>
+            <p className="moneydaddy-tl">MoneyDaddy</p>
+          </div>
+          <button onClick={logout} className="logout-btn">
+            Logout
+          </button>
 
-          <a href={`/Expense`} className="">
-            <p className="nav-btn">Your Expenses</p>
-          </a>
+          <div>
+            <a href={`/dashboard`} className="">
+              <p className="nav-btn">Dashboard</p>
+            </a>
+
+            <a href={`/Expense`} className="">
+              <p className="nav-btn">Your Expenses</p>
+            </a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
       <div className="mobile-container">
         <div className="topnav-mobile">

@@ -6,13 +6,6 @@
   }
 }
 
-/* Mobile */
-@media (max-width: 991.98px) {
-  .navigation-col {
-    height: auto;
-  }
-}
-
 body {
   background-color: #f4f4f4;
 }
@@ -20,4 +13,8 @@ body {
 .back-to-home {
   display: flex;
   justify-content: center;
+}
+
+.container-height {
+ height: 100vh;
 }
