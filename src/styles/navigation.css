@@ -34,14 +34,19 @@ nav {
 .logo-container {
   display: flex;
   align-items: center;
-  margin: 0px 0;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1em;
 }
 
 .moneydaddy-tl {
   color: #f6f6f6;
   font-weight: 700;
-  font-size: 30px;
-  margin-top: 20px;
+  font-size: 1.75em;
+  margin-bottom: 0 !important;
 }
 
 a {
@@ -49,7 +54,7 @@ a {
 }
 
 .logout-btn {
-  width: 200px;
+  width: 100%;
   background-color: #f6f6f6;
   color: #222222;
   text-transform: uppercase;
@@ -74,9 +79,10 @@ a {
   display: none;
 }
 
-.mobile-container i, button {
-    color: #f4f4f4;
-    background-color: #222222;
+.mobile-container i,
+button {
+  color: #f4f4f4;
+  background-color: #222222;
 }
 
 .mobile-list {
@@ -84,18 +90,20 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #525252;
-  padding: 20px;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .mobile-list a {
   padding: 10px;
   text-decoration: none !important;
+  text-align: center;
   color: #fff;
+  width: 100%;
+  border-top: 1px solid #f4f4f4;
 }
 
 .logo-image span {
-    color: #fff;
+  color: #fff;
 }
 
 .topnav-mobile button {
@@ -131,5 +139,11 @@ a {
 
   .mobile-container {
     display: block;
+  }
+}
+
+@media screen and (max-width: 1661px) {
+  .moneydaddy-tl {
+    font-size: 1.25em;
   }
 }
