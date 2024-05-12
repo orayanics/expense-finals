@@ -31,17 +31,17 @@ export default function Navigation() {
             <p className="nav-btn">Your Expenses</p>
           </a>
           
-          <a href={`/Expense`} className="">
+          {/* <a href={`/HowItWorks`} className="">
             <p className="nav-btn">How to use</p>
           </a>
 
-          <a href={`/Expense`} className="">
+          <a href={`/Faqs`} className="">
             <p className="nav-btn">FAQ</p>
           </a>
 
-          <a href={`/Expense`} className="">
+          <a href={`/Contact`} className="">
             <p className="nav-btn">Contact</p>
-          </a>
+          </a> */}
         </div>
       </div>
     </nav>

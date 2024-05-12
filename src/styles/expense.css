@@ -16,40 +16,44 @@
 body {
   background-color: #f6f6f6;
   font-family: "TelegrafRegular", sans-serif;
+  margin-bottom:50px;
 }
 
 .h1 {
   font-weight: 700;
-  padding: 50px 0px 0px 50px;
+  margin:50px 0px 0px 20px;
 }
 
 .h2 {
-  margin: 30px 0px 0px 50px;
   font-weight: bold;
+  margin: 30px 0px 0px 20px;
 }
 
 .date-today {
-  padding-left: 50px;
+  margin-left: 20px;
 }
 
+form {
+  margin-left:20px;
+}
 .expense-input {
-  box-sizing: border-box;
   border-radius: 13px;
-  border-width: 1px;
+  border: 1px solid #ccc;
   background-color: #f6f6f6;
   padding: 12px;
-  width: 20%;
-  height: 15%;
+  width: 100%;
+  margin: 0px 10px 0px 0px;
+  max-width: 300px; /* Adjust as needed */
+  box-sizing: border-box;
 }
 
-input[type="text"] {
-  height: 50px;
-  margin-left: 50px;
-}
-
+input[type="text"],
 input[type="number"] {
   height: 50px;
-  margin-left: 10px;
+  width: 100%;
+  margin-top: 0px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 input[type="text"],
@@ -66,7 +70,7 @@ input[type="text"],
   padding: 12px;
   width: 50px;
   height: 50px;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 .expense-add-btn:hover {
@@ -84,8 +88,9 @@ ul {
   background-color: #222222;
   color: #f6f6f6;
   padding: 12px;
-  margin: 20px 0px 20px 18px;
-  width: 47%;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 10px;
 }
 
 .expenses-total {
@@ -115,24 +120,13 @@ ul {
   transition-duration: 0.5s;
 }
 
-.user-photo {
-  margin-left: 50px;
-  border-radius: 50%;
-  width: 100px;
-  object-fit: cover;
-  filter: grayscale(100%);
-}
-
-.dashboard-exp {
-  border-radius: 13px;
-  border: none;
-  background-color: #222222;
-  color: #f6f6f6;
-  padding: 12px;
-  margin: 20px 0px 20px 50px;
-  width: 60%;
-}
-
 .h5 {
   margin: 20px 0px 0px 50px;
+}
+
+@media (max-width: 768px) {
+  .expenses-list {
+    margin: 0px 0px 20px 20px; /* Adjusted margin for smaller screens */
+    max-width: 90%; /* Allow element to take full width on smaller screens */
+  }
 }

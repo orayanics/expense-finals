@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import ConditionalMessage from "../components/ConditionalMessage";
-import '../styles/expense.css';
+import '../styles/dashboard.css';
 
 export default function Dashboard() {
   const [date] = useState(new Date());
@@ -206,7 +206,7 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <h1>Welcome back, {user.name}</h1>
+        <p className="dashboard-title">Welcome, {user.name}</p>
       </div>
       <p className="date-today">
            {date.toLocaleDateString("default", {
@@ -219,46 +219,47 @@ export default function Dashboard() {
         <div>
           <img src={user.photo} alt={user.name} className="user-photo"/>
           {isLoading ? (
-            <h5>Loading...</h5>
+            <h6>Loading...</h6>
           ) : (
             <>
-            <h2>Today</h2>
+            <p className="dashboard-title-date">Today</p>
             <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfCurrentDate.length > 0}
                 message={`You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`}
               />
               </div>
+              <p className="dashboard-title-date">Yesterday</p>
               <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfYesterday.length > 0}
                 message={`You bought ${expensesOfYesterday.length} items yesterday - TOTAL: PHP ${totalYesterday}`}
               />
               </div>
-            <h2>This Week</h2>
+              <p className="dashboard-title-date">This Week</p>
             <div className="dashboard-exp">
               <ConditionalMessage
                 condition={countExpensesThisWeek.length > 0}
                 message={`You have ${countExpensesThisWeek.length} expenses this week - TOTAL: PHP ${totalThisWeek}`}
               />
             </div>
-            <h2>Last Week</h2>
+            <p className="dashboard-title-date">Last Week</p>
             <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfPrevWeek.length > 0}
                 message={`You have ${expensesOfPrevWeek.length} expense/s last week - TOTAL: PHP ${totalPrevWeek}`}
               />
               </div>
-              <h2>This Month</h2>
+              <p className="dashboard-title-date">This Month</p>
               <div className="dashboard-exp">
               <ConditionalMessage
                 condition={expensesOfCurrentMonth.length > 0}
                 message={`You have ${expensesOfCurrentMonth.length} expenses this month - TOTAL: ${totalCurrMonth}`}
               />
               </div>
-            
             </>
           )}
+          
         </div>
       )}
     </>
