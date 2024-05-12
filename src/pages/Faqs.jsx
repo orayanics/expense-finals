@@ -80,8 +80,8 @@ function Faqs() {
             <button className="back2">Back to Home</button>
           </a>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

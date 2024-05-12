@@ -56,8 +56,8 @@ function HowItWorks() {
             <button className="back">Back to Home</button>
           </a>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
