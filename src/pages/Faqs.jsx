@@ -73,7 +73,7 @@ function Faqs() {
           </Accordion>
         </div>
         <a href="/" className="back-to-home">
-          <button>Back to Home</button>
+          <button className="back2" >Back to Home</button>
         </a>
         <Footer />
       </div>

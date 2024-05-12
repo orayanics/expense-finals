@@ -40,7 +40,7 @@
 
 .moving {
   animation-name: float;
-  animation-duration: 2s;
+  animation-duration: 1s;
   animation-direction: alternate-reverse;
   animation-iteration-count: infinite;
   animation-timing-function: linear;

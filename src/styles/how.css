@@ -3,7 +3,7 @@
 }
 
 .how-container {
-  height: 100vh;
+  height: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,4 +13,20 @@
 .how-accordion {
     width: 80%;
     padding: 5%;
+}
+
+.back {
+  border-radius: 20px;
+  background-color: #373737;
+  color: #fff;
+  width: fit-content; /* Or use width: auto; */
+  margin: auto;
+  padding: 10px 20px; /* Adjust padding as needed */
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.5 ease;
+}
+
+.signin:hover {
+  background-color: black;
 }

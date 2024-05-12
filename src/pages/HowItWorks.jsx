@@ -52,7 +52,7 @@ function HowItWorks() {
         </main>
 
         <a href="/" className="back-to-home">
-          <button>Back to Home</button>
+          <button className="back">Back to Home</button>
         </a>
         <Footer />
       </div>
