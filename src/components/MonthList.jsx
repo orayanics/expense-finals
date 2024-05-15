@@ -52,7 +52,7 @@ export default function MonthList() {
 
   return (
     <div>
-      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+      <div style={{ maxHeight: "400px", overflowY: "auto", borderRadius:'13px' }}>
         {expensesOfCurrentMonth.map((expense) => (
           <div key={expense.id} className="month-container">
             <div className="month-first">

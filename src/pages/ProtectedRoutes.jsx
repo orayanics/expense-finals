@@ -14,7 +14,7 @@ const ProtectedRoutes = () => {
 
   return (
     <div className="container-height">
-    <Container fluid >
+    <Container fluid>
       <Row>
         <Col xs={12} lg={2} className="py-3 navigation-col">
           <Navigation />

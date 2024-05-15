@@ -22,3 +22,11 @@ body {
 .container-height {
  height: 100vh;
 }
+
+.container-fluid {
+  height: 100%;
+}
+
+.row {
+  height: 100%;
+}

@@ -110,6 +110,11 @@ h6 {
   font-style: italic;
 }
 
+/* scroll bar */
+/* width */
+::-webkit-scrollbar {
+  display: none;
+}
 
 /* Media Query for Responsiveness */
 @media only screen and (max-width: 991px) {
