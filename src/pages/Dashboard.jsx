@@ -203,7 +203,6 @@ export default function Dashboard() {
     [expensesOfYesterday]
   );
   // END OF YESTERDAY
-
   return (
     <>
       <div className="dashboard-heading">
@@ -222,114 +221,97 @@ export default function Dashboard() {
 
       {userId && (
         <div className="expenses-container">
-          <div className="expenses-child">
-            {isLoading ? (
-              <h6>Loading...</h6>
-            ) : (
-              <>
-                {expensesOfCurrentDate.length > 0 ? (
-                  <>
-                    <ConditionalMessage
-                      condition={expensesOfCurrentDate.length > 0}
-                      type={`Today`}
-                      message={
-                        expensesOfCurrentDate.length === 1
-                          ? `You have ${expensesOfCurrentDate.length} expense today - TOTAL: PHP ${totalCurrent}`
-                          : `You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`
-                      }
-                    />
-                  </>
-                ) : (
+          {isLoading ? (
+            <h3>Loading...</h3>
+          ) : (
+            <>
+              <div className="expenses-child">
+                <ConditionalMessage
+                  condition={expensesOfCurrentDate.length > 0}
+                  type={`Today`}
+                  message={
+                    expensesOfCurrentDate.length === 1
+                      ? `You have ${expensesOfCurrentDate.length} expense today - TOTAL: PHP ${totalCurrent}`
+                      : `You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`
+                  }
+                />
+                {expensesOfCurrentDate.length === 0 && (
                   <ConditionalMessage
-                    condition={expensesOfCurrentDate.length > 0}
+                    condition={expensesOfCurrentDate.length === 0}
                     type={`Today`}
                     message={`You have no expenses today`}
                   />
                 )}
 
-                {expensesOfYesterday.length > 0 ? (
-                  <ConditionalMessage
-                    condition={expensesOfYesterday.length > 0}
-                    type={`Yesterday`}
-                    message={
-                      expensesOfYesterday.length === 1
-                        ? `You have ${expensesOfYesterday.length} expense today - TOTAL: PHP ${totalYesterday}`
-                        : `You have ${expensesOfYesterday.length} expenses today - TOTAL: PHP ${totalYesterday}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfYesterday.length > 0}
-                    type={`Yesterday`}
-                    message={`You have no expenses yesterday`}
-                  />
-                )}
+                <ConditionalMessage
+                  condition={expensesOfYesterday.length > 0}
+                  type={`Yesterday`}
+                  message={
+                    expensesOfYesterday.length === 1
+                      ? `You have ${expensesOfYesterday.length} expense yesterday - TOTAL: PHP ${totalYesterday}`
+                      : `You have ${expensesOfYesterday.length} expenses yesterday - TOTAL: PHP ${totalYesterday}`
+                  }
+                />
 
-                {countExpensesThisWeek.length > 0 ? (
+                <ConditionalMessage
+                  condition={countExpensesThisWeek.length > 0}
+                  type={`This Week`}
+                  message={
+                    countExpensesThisWeek.length === 1
+                      ? `You have ${countExpensesThisWeek.length} expense this week - TOTAL: PHP ${totalThisWeek}`
+                      : `You have ${countExpensesThisWeek.length} expenses this week - TOTAL: PHP ${totalThisWeek}`
+                  }
+                />
+                {countExpensesThisWeek.length === 0 && (
                   <ConditionalMessage
-                    condition={countExpensesThisWeek.length > 0}
-                    type={`This Week`}
-                    message={
-                      countExpensesThisWeek.length === 1
-                        ? `You have ${countExpensesThisWeek.length} expense today - TOTAL: PHP ${totalThisWeek}`
-                        : `You have ${countExpensesThisWeek.length} expenses today - TOTAL: PHP ${totalThisWeek}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={countExpensesThisWeek.length > 0}
+                    condition={countExpensesThisWeek.length === 0}
                     type={`This Week`}
                     message={`You have no expenses this week`}
                   />
                 )}
 
-                {expensesOfPrevWeek.length > 0 ? (
+                <ConditionalMessage
+                  condition={expensesOfPrevWeek.length > 0}
+                  type={`Last Week`}
+                  message={
+                    expensesOfPrevWeek.length === 1
+                      ? `You have ${expensesOfPrevWeek.length} expense last week - TOTAL: PHP ${totalPrevWeek}`
+                      : `You have ${expensesOfPrevWeek.length} expenses last week - TOTAL: PHP ${totalPrevWeek}`
+                  }
+                />
+                {expensesOfPrevWeek.length === 0 && (
                   <ConditionalMessage
-                    condition={expensesOfPrevWeek.length > 0}
-                    type={`Last Week`}
-                    message={
-                      expensesOfPrevWeek.length === 1
-                        ? `You have ${expensesOfPrevWeek.length} expense today - TOTAL: PHP ${totalPrevWeek}`
-                        : `You have ${expensesOfPrevWeek.length} expenses today - TOTAL: PHP ${totalPrevWeek}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfPrevWeek.length > 0}
+                    condition={expensesOfPrevWeek.length === 0}
                     type={`Last Week`}
                     message={`You have no expenses last week`}
                   />
                 )}
-              </>
-            )}
-          </div>
+              </div>
 
-          {isLoading ? (
-            <h6>Loading...</h6>
-          ) : (
-            <div className="expenses-child">
-              {expensesOfCurrentMonth.length > 0 ? (
-                <>
+              <div className="expenses-child">
+                {expensesOfCurrentMonth.length > 0 ? (
+                  <>
+                    <ConditionalMessage
+                      condition={expensesOfCurrentMonth.length > 0}
+                      type={`This Month's Expenses`}
+                      message={
+                        expensesOfCurrentMonth.length === 1
+                          ? `You have ${expensesOfCurrentMonth.length} expense this month - TOTAL: PHP ${totalCurrMonth}`
+                          : `You have ${expensesOfCurrentMonth.length} expenses this month - TOTAL: PHP ${totalCurrMonth}`
+                      }
+                    />
+                  </>
+                ) : (
                   <ConditionalMessage
-                    condition={expensesOfCurrentMonth.length > 0}
+                    condition={expensesOfCurrentMonth.length === 0}
                     type={`This Month's Expenses`}
-                    message={
-                      expensesOfCurrentMonth.length === 1
-                        ? `You have ${expensesOfCurrentMonth.length} expense today - TOTAL: PHP ${totalCurrMonth}`
-                        : `You have ${expensesOfCurrentMonth.length} expenses today - TOTAL: PHP ${totalCurrMonth}`
-                    }
+                    message={`You have no expenses this month`}
                   />
-                </>
-              ) : (
-                <ConditionalMessage
-                  condition={expensesOfCurrentMonth.length > 0}
-                  type={`This Month's Expenses`}
-                  message={`You have no expenses this month`}
-                />
-              )}
+                )}
 
-              <MonthList />
-            </div>
+                <MonthList />
+              </div>
+            </>
           )}
         </div>
       )}
