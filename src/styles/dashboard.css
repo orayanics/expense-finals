@@ -27,7 +27,7 @@ body {
 
 .dashboard-title-date{
   font-size: 25px;
-  margin: 0px 0px 0px 20px;
+  /* margin: 0px 0px 0px 20px; */
   font-weight: bold;
 }
 
@@ -64,9 +64,22 @@ h6 {
   background-color: #222222;
   color: #f6f6f6;
   padding: 12px;
-  margin: 0px 10px 20px 20px; /* Adjusted margin for better responsiveness */
+  /* margin: 0px 10px 20px 20px; */
   width: 100%;
   max-width: 500px;
+}
+
+.expenses-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5%;
+  gap: 20px;
+}
+
+.expenses-container .expenses-child {
+  width: 50%;
+  height: 100%;
 }
 
 /* Media Query for Responsiveness */
@@ -77,6 +90,10 @@ h6 {
   }
 
   .user-photo { 
+  }
+
+  .expenses-container {
+    flex-direction: column;
   }
 }
 

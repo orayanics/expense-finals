@@ -1,13 +1,14 @@
 .faqs {
-  height: 93vh;
+  height: 100vh;
 }
 
 .faq-container {
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  gap: 20px;
 }
 
 .faq-accordion {

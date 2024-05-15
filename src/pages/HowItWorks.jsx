@@ -55,8 +55,8 @@ function HowItWorks() {
           <a href="/" className="back-to-home">
             <button className="back">Back to Home</button>
           </a>
+          <Footer />
         </div>
-        <Footer />
       </div>
     </>
   );

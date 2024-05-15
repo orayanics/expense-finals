@@ -1,13 +1,14 @@
 .how {
-  height: 93vh;
+  height: 100vh;
 }
 
 .how-container {
-  height: auto;
+  height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  gap: 20px
 }
 
 .how-accordion {

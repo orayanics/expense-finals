@@ -2,6 +2,20 @@
   background-color: #f4f4f4;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.moneydaddy-text {
+  color: #000;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .topnav a {
@@ -12,6 +26,12 @@
   font-size: 17px;
   margin-left: 10px;
   margin-right: 10px;
+  text-decoration: none;
+}
+
+.moneydaddy-link {
+  display: flex;
+  align-items: center;
   text-decoration: none;
 }
 

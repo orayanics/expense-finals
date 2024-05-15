@@ -10,17 +10,17 @@ export default function GeneralNav() {
   return (
     <>
       <div className="topnav">
-        <b className="navbar-brand">
-          <div className="logo-image">
-            <a href="/" className="moneydaddy-link">
-              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
-              <span className="moneydaddy-text">MoneyDaddy</span>
-            </a>
-          </div>
-        </b>
-        <a href="/how"> HOW IT WORKS</a>
-        <a href="/faqs"> FAQS </a>
-        <a href="/contact"> CONTACT </a>
+        <div className="logo-image links">
+          <a href="/" className="moneydaddy-link">
+            <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
+            <p className="moneydaddy-text">MoneyDaddy</p>
+          </a>
+        </div>
+        <div className="links">
+          <a href="/how"> HOW IT WORKS</a>
+          <a href="/faqs"> FAQS </a>
+          <a href="/contact"> CONTACT </a>
+        </div>
       </div>
 
       {/* MOBILE */}
@@ -28,11 +28,13 @@ export default function GeneralNav() {
         <div className="topnav-mobile">
           <div className="logo-image">
             <a href="/" className="moneydaddy-link">
-              <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
+              <img src="MONEYDADDY-2.png" alt="MoneyDaddy" width="25" />
               <span className="moneydaddy-text">MoneyDaddy</span>
             </a>
           </div>
-          <button onClick={showLinks}><i class="bi bi-list"></i></button>
+          <button onClick={showLinks}>
+            <i class="bi bi-list"></i>
+          </button>
         </div>
 
         {showMobileList && (

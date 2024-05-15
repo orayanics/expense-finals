@@ -1,7 +1,7 @@
 /*login */
 .text1 {
   text-align: center;
-  font-size: 90px;
+  font-size: 6em;
   white-space: pre-wrap;
   display: flex;
   flex-direction: column;
@@ -24,11 +24,7 @@
 }
 
 /* navbar */
-.moneydaddy-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
+
 
 .moneydaddy-text {
   margin-left: 5px; /* Adjust as needed */
@@ -81,4 +77,10 @@ h1 {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+}
+
+@media only screen and (max-width: 991px) {
+  .text1 {
+    font-size: 4.5em;
+  }
 }
