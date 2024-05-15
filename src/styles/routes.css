@@ -10,6 +10,10 @@ body {
   background-color: #f4f4f4;
 }
 
+.navigation-col {
+  height: auto;
+}
+
 .back-to-home {
   display: flex;
   justify-content: center;

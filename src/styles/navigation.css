@@ -11,6 +11,9 @@ nav {
   overflow-x: hidden;
   transition: width 0.3s ease;
   padding: 20px;
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
 }
 
 .nav-btn {

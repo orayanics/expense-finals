@@ -75,7 +75,7 @@ h6 {
   /* padding: 5%; */
   gap: 20px;
   margin-top: 1em;
-  height: 700px;
+  height: 100%;
 }
 
 .expenses-container .expenses-child {

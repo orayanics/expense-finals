@@ -3,6 +3,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import ConditionalMessage from "../components/ConditionalMessage";
 import MonthList from "../components/MonthList";
+import BarChart from "../components/BarChart";
 import "../styles/dashboard.css";
 
 export default function Dashboard() {
@@ -286,6 +287,8 @@ export default function Dashboard() {
                     message={`You have no expenses last week`}
                   />
                 )}
+
+                <BarChart />
               </div>
 
               <div className="expenses-child">
