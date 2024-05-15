@@ -206,20 +206,23 @@ export default function Dashboard() {
 
   return (
     <>
-      <div>
-        <p className="dashboard-title">Welcome, {user.name}</p>
+      <div className="dashboard-heading">
+        <img src={user.photo} alt={user.name} className="user-photo" />
+        <div>
+          <p className="dashboard-title">Welcome, {user.name}</p>
+          <p className="">
+            {date.toLocaleDateString("default", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+        </div>
       </div>
-      <p className="date-today">
-        {date.toLocaleDateString("default", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        })}
-      </p>
+
       {userId && (
         <div className="expenses-container">
           <div className="expenses-child">
-            <img src={user.photo} alt={user.name} className="user-photo" />
             {isLoading ? (
               <h6>Loading...</h6>
             ) : (
@@ -229,7 +232,11 @@ export default function Dashboard() {
                     <ConditionalMessage
                       condition={expensesOfCurrentDate.length > 0}
                       type={`Today`}
-                      message={`You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`}
+                      message={
+                        expensesOfCurrentDate.length === 1
+                          ? `You have ${expensesOfCurrentDate.length} expense today - TOTAL: PHP ${totalCurrent}`
+                          : `You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`
+                      }
                     />
                   </>
                 ) : (
@@ -244,7 +251,11 @@ export default function Dashboard() {
                   <ConditionalMessage
                     condition={expensesOfYesterday.length > 0}
                     type={`Yesterday`}
-                    message={`You bought ${expensesOfYesterday.length} items yesterday - TOTAL: PHP ${totalYesterday}`}
+                    message={
+                      expensesOfYesterday.length === 1
+                        ? `You have ${expensesOfYesterday.length} expense today - TOTAL: PHP ${totalYesterday}`
+                        : `You have ${expensesOfYesterday.length} expenses today - TOTAL: PHP ${totalYesterday}`
+                    }
                   />
                 ) : (
                   <ConditionalMessage
@@ -258,7 +269,11 @@ export default function Dashboard() {
                   <ConditionalMessage
                     condition={countExpensesThisWeek.length > 0}
                     type={`This Week`}
-                    message={`You have ${countExpensesThisWeek.length} expenses this week - TOTAL: PHP ${totalThisWeek}`}
+                    message={
+                      countExpensesThisWeek.length === 1
+                        ? `You have ${countExpensesThisWeek.length} expense today - TOTAL: PHP ${totalThisWeek}`
+                        : `You have ${countExpensesThisWeek.length} expenses today - TOTAL: PHP ${totalThisWeek}`
+                    }
                   />
                 ) : (
                   <ConditionalMessage
@@ -272,7 +287,11 @@ export default function Dashboard() {
                   <ConditionalMessage
                     condition={expensesOfPrevWeek.length > 0}
                     type={`Last Week`}
-                    message={`You have ${expensesOfPrevWeek.length} expense/s last week - TOTAL: PHP ${totalPrevWeek}`}
+                    message={
+                      expensesOfPrevWeek.length === 1
+                        ? `You have ${expensesOfPrevWeek.length} expense today - TOTAL: PHP ${totalPrevWeek}`
+                        : `You have ${expensesOfPrevWeek.length} expenses today - TOTAL: PHP ${totalPrevWeek}`
+                    }
                   />
                 ) : (
                   <ConditionalMessage
@@ -285,25 +304,33 @@ export default function Dashboard() {
             )}
           </div>
 
-          <div className="expenses-child">
-            {expensesOfCurrentMonth.length > 0 ? (
-              <>
+          {isLoading ? (
+            <h6>Loading...</h6>
+          ) : (
+            <div className="expenses-child">
+              {expensesOfCurrentMonth.length > 0 ? (
+                <>
+                  <ConditionalMessage
+                    condition={expensesOfCurrentMonth.length > 0}
+                    type={`This Month's Expenses`}
+                    message={
+                      expensesOfCurrentMonth.length === 1
+                        ? `You have ${expensesOfCurrentMonth.length} expense today - TOTAL: PHP ${totalCurrMonth}`
+                        : `You have ${expensesOfCurrentMonth.length} expenses today - TOTAL: PHP ${totalCurrMonth}`
+                    }
+                  />
+                </>
+              ) : (
                 <ConditionalMessage
                   condition={expensesOfCurrentMonth.length > 0}
                   type={`This Month's Expenses`}
-                  message={`You have ${expensesOfCurrentMonth.length} expenses this month - TOTAL: ${totalCurrMonth}`}
+                  message={`You have no expenses this month`}
                 />
-              </>
-            ) : (
-              <ConditionalMessage
-                condition={expensesOfCurrentMonth.length > 0}
-                type={`This Month's Expenses`}
-                message={`You have no expenses this month`}
-              />
-            )}
+              )}
 
-            <MonthList/>
-          </div>
+              <MonthList />
+            </div>
+          )}
         </div>
       )}
     </>

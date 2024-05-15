@@ -118,7 +118,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         <h5 className="h5">Loading...</h5>
       ) : (
         <>
-          <ul>
+          <ul style={{ maxHeight: "500px", overflowY: "auto" }}>
             {expenses.map((expense) => (
               <li key={expense.expenseId}>
                 {editExpense === expense.expenseId ? (
@@ -151,23 +151,32 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
                         )
                       }
                     />
-                    <button className="expense-add-btn"
-                     onClick={() => handleEdit(expense, expense.expenseId)}
-                   >
-                     ✓
-                   </button>
+                    <button
+                      className="expense-add-btn"
+                      onClick={() => handleEdit(expense, expense.expenseId)}
+                    >
+                      ✓
+                    </button>
                   </div>
                 ) : (
                   <div className="expenses-list">
-                   {/* <button onClick={() => setEditExpense(expense.expenseId)}>
+                    {/* <button onClick={() => setEditExpense(expense.expenseId)}>
                      Edit
                    </button> */}
-                   <a onClick={() => setEditExpense(expense.expenseId)}><img src="/pencil.png" alt="Edit" className="edit-btn" /></a>
-                   {/* <button onClick={() => handleDelete(expense.expenseId)}>
+                    <a onClick={() => setEditExpense(expense.expenseId)}>
+                      <img src="/pencil.png" alt="Edit" className="edit-btn" />
+                    </a>
+                    {/* <button onClick={() => handleDelete(expense.expenseId)}>
                      Delete
                    </button> */}
-                   <a onClick={() => handleDelete(expense.expenseId)}><img src="/trash.png" alt="Delete" className="delete-btn" /></a>
-                     {expense.type} - PHP {expense.amount}
+                    <a onClick={() => handleDelete(expense.expenseId)}>
+                      <img
+                        src="/trash.png"
+                        alt="Delete"
+                        className="delete-btn"
+                      />
+                    </a>
+                    {expense.type} - PHP {expense.amount}
                   </div>
                 )}
               </li>

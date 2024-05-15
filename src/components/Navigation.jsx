@@ -38,7 +38,7 @@ export default function Navigation() {
             </a>
 
             <a href={`/Expense`} className="">
-              <p className="nav-btn">Your Expenses</p>
+              <p className="nav-btn">Expenses</p>
             </a>
           </div>
         </div>

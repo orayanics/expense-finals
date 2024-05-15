@@ -35,10 +35,12 @@ export default function MonthList() {
 
   const expensesOfCurrentMonth = useMemo(
     () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
-      }),
+      expenses
+        .filter((expense) => {
+          const expenseDate = new Date(expense.date);
+          return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date)),
     [expenses, startOfMonth, endOfMonth]
   );
 
@@ -50,14 +52,17 @@ export default function MonthList() {
 
   return (
     <div>
-      <p>Monthly List</p>
-
-      <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         {expensesOfCurrentMonth.map((expense) => (
-          <div key={expense.id}>
-            <p>{new Date(expense.date).toLocaleDateString("en-US", options)}</p>
-            <p>{expense.amount}</p>
-            <p>{expense.type}</p>
+          <div key={expense.id} className="month-container">
+            <div className="month-first">
+              <p>{expense.type}</p>
+              <p>₱ {expense.amount}</p>
+            </div>
+
+            <p className="month-date">
+              {new Date(expense.date).toLocaleDateString("en-US", options)}
+            </p>
           </div>
         ))}
       </div>

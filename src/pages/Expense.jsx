@@ -37,9 +37,10 @@ export default function Expense() {
         />
       </div>
 
-      <div className="expenses-total">
+      { isLoading ? (<h6>Loading...</h6>):(      <div className="expenses-total">
         <ConditionalMessage condition={!isLoading} message={`Total Amount: PHP ${totalAmount}`} />
-      </div>
+      </div>)}
+
     </>
   );
 }
