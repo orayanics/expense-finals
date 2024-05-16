@@ -2,15 +2,28 @@ import { useMemo, useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
+// Pre-calculate the start and end of the month
+const now = new Date();
+const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+const endOfMonth = new Date(
+  now.getFullYear(),
+  now.getMonth() + 1,
+  0,
+  23,
+  59,
+  59,
+  999
+);
+
 export default function MonthList() {
   const { userId } = getUser();
   const [expenses, setExpenses] = useState([]);
 
   // Fetching Data
   useEffect(() => {
-    const db = getDatabase();
-    onValue(
-      ref(db, `users/${userId}/expenses`),
+    const dbRef = ref(getDatabase(), `users/${userId}/expenses`);
+    const unsubscribe = onValue(
+      dbRef,
       (snapshot) => {
         const expensesData = snapshot.val();
         const formattedExpenses = expensesData
@@ -22,50 +35,41 @@ export default function MonthList() {
         onlyOnce: true,
       }
     );
+    return () => unsubscribe();
   }, [userId]);
 
-  const { startOfMonth, endOfMonth } = useMemo(() => {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth(), 1);
-    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    start.setHours(0, 0, 0, 0); // Start of the month
-    end.setHours(23, 59, 59, 999); // End of the month
-    return { startOfMonth: start, endOfMonth: end };
-  }, []);
+  const expensesOfCurrentMonth = useMemo(() => {
+    return expenses
+      .filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
+      })
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+  }, [expenses]);
 
-  const expensesOfCurrentMonth = useMemo(
-    () =>
-      expenses
-        .filter((expense) => {
-          const expenseDate = new Date(expense.date);
-          return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
-        })
-        .sort((a, b) => new Date(b.date) - new Date(a.date)),
-    [expenses, startOfMonth, endOfMonth]
-  );
-
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
-    <div>
-      <div style={{ maxHeight: "400px", overflowY: "auto", borderRadius:'13px' }}>
+    <>
+      <div
+        style={{ maxHeight: "400px", overflowY: "auto", borderRadius: "13px" }}
+      >
         {expensesOfCurrentMonth.map((expense) => (
           <div key={expense.id} className="month-container">
             <div className="month-first">
               <p>{expense.type}</p>
               <p>₱ {expense.amount}</p>
             </div>
-
-            <p className="month-date">
-              {new Date(expense.date).toLocaleDateString("en-US", options)}
-            </p>
+            <p className="month-date">{formatDate(expense.date)}</p>
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }

@@ -58,8 +58,11 @@ export default function Navigation() {
         </div>
         {showMobileList && (
           <div className="mobile-list">
-            <a href="/dashboard"> Dashboard</a>
-            <a href="/expense"> Your Expenses </a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/expense">Expenses </a>
+            <button onClick={logout} className="logout-mobile">
+              Logout
+            </button>
           </div>
         )}
       </div>

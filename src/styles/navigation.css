@@ -75,6 +75,17 @@ a {
   transition-duration: 0.7s;
 }
 
+.logout-mobile {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid #f4f4f4;
+}
+
+.mobile-list a:hover, .mobile-list button:hover {
+  background-color: #383838;
+}
+
 .mobile-container {
   width: 100%;
   background-color: #222222;

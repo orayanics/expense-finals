@@ -13,12 +13,11 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [expenses, setExpenses] = useState([]);
 
-  // Fetching Data
   useEffect(() => {
-    const db = getDatabase();
+    const dbRef = ref(getDatabase(), `users/${userId}/expenses`);
     setIsLoading(true);
-    onValue(
-      ref(db, `users/${userId}/expenses`),
+    const unsubscribe = onValue(
+      dbRef,
       (snapshot) => {
         setIsLoading(false);
         const expensesData = snapshot.val();
@@ -31,179 +30,62 @@ export default function Dashboard() {
         onlyOnce: true,
       }
     );
+    return () => unsubscribe();
   }, [userId]);
 
-  // START OF GETTING CURRENT WEEK
-  const { startOfWeek, endOfWeek } = useMemo(() => {
-    let now = new Date();
-    let day = now.getDay() || 7;
-    if (day !== 1) now.setHours(-24 * (day - 1));
-    now.setHours(0, 0, 0, 0);
-
-    let end = new Date(now);
-    end.setDate(now.getDate() + 6);
-    end.setHours(23, 59, 59, 999);
-
-    return { startOfWeek: now, endOfWeek: end };
+  const {
+    startOfWeek,
+    endOfWeek,
+    startOfPrevWeek,
+    endOfPrevWeek,
+    startOfMonth,
+    endOfMonth,
+    startOfCurrentDate,
+    endOfCurrentDate,
+    startOfYesterday,
+    endOfYesterday,
+  } = useMemo(() => {
+    return calculateDateRanges();
   }, []);
 
-  const countExpensesThisWeek = useMemo(
-    () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startOfWeek && expenseDate <= endOfWeek;
-      }),
-    [expenses, startOfWeek, endOfWeek]
-  );
+  const {
+    countExpensesThisWeek,
+    totalThisWeek,
+    expensesOfPrevWeek,
+    totalPrevWeek,
+    expensesOfCurrentMonth,
+    totalCurrMonth,
+    expensesOfCurrentDate,
+    totalCurrent,
+    expensesOfYesterday,
+    totalYesterday,
+  } = useMemo(() => {
+    return calculateExpenseSummaries(expenses, {
+      startOfWeek,
+      endOfWeek,
+      startOfPrevWeek,
+      endOfPrevWeek,
+      startOfMonth,
+      endOfMonth,
+      startOfCurrentDate,
+      endOfCurrentDate,
+      startOfYesterday,
+      endOfYesterday,
+    });
+  }, [
+    expenses,
+    startOfWeek,
+    endOfWeek,
+    startOfPrevWeek,
+    endOfPrevWeek,
+    startOfMonth,
+    endOfMonth,
+    startOfCurrentDate,
+    endOfCurrentDate,
+    startOfYesterday,
+    endOfYesterday,
+  ]);
 
-  const totalThisWeek = useMemo(
-    () =>
-      countExpensesThisWeek.reduce(
-        (total, expense) => total + Number(expense.amount),
-        0
-      ),
-    [countExpensesThisWeek]
-  );
-  // END OF CURRENT WEEK
-
-  // START OF PREVIOUS WEEK
-  const { startOfPrevWeek, endOfPrevWeek } = useMemo(() => {
-    let now = new Date();
-    let day = now.getDay() || 7;
-    if (day !== 1) now.setHours(-24 * (day - 1));
-    now.setHours(0, 0, 0, 0); // Start of the week
-    now.setDate(now.getDate() - 7); // Go back one week
-    let end = new Date(now);
-    end.setDate(now.getDate() + 6);
-    end.setHours(23, 59, 59, 999); // End of the week
-    return { startOfPrevWeek: now, endOfPrevWeek: end };
-  }, []);
-
-  const expensesOfPrevWeek = useMemo(
-    () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startOfPrevWeek && expenseDate <= endOfPrevWeek;
-      }),
-    [expenses, startOfPrevWeek, endOfPrevWeek]
-  );
-
-  const totalPrevWeek = useMemo(
-    () =>
-      expensesOfPrevWeek.reduce(
-        (total, expense) => total + Number(expense.amount),
-        0
-      ),
-    [expensesOfPrevWeek]
-  );
-  // END OF PREVIOUS WEEK
-
-  // START OF CURRENT MONTH
-  const { startOfMonth, endOfMonth } = useMemo(() => {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth(), 1);
-    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    start.setHours(0, 0, 0, 0); // Start of the month
-    end.setHours(23, 59, 59, 999); // End of the month
-    return { startOfMonth: start, endOfMonth: end };
-  }, []);
-
-  const expensesOfCurrentMonth = useMemo(
-    () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
-      }),
-    [expenses, startOfMonth, endOfMonth]
-  );
-
-  const totalCurrMonth = useMemo(
-    () =>
-      expensesOfCurrentMonth.reduce(
-        (total, expense) => total + Number(expense.amount),
-        0
-      ),
-    [expensesOfCurrentMonth]
-  );
-  // END OF CURRENT MONTH
-
-  // START OF CURRENT DATE
-  const { startOfCurrentDate, endOfCurrentDate } = useMemo(() => {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const end = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      23,
-      59,
-      59,
-      999
-    );
-    return { startOfCurrentDate: start, endOfCurrentDate: end };
-  }, []);
-
-  const expensesOfCurrentDate = useMemo(
-    () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return (
-          expenseDate >= startOfCurrentDate && expenseDate <= endOfCurrentDate
-        );
-      }),
-    [expenses, startOfCurrentDate, endOfCurrentDate]
-  );
-
-  const totalCurrent = useMemo(
-    () =>
-      expensesOfCurrentDate.reduce(
-        (total, expense) => total + Number(expense.amount),
-        0
-      ),
-    [expensesOfCurrentDate]
-  );
-  // END OF CURRENT DATE
-
-  // START OF YESTERDAY
-  const { startOfYesterday, endOfYesterday } = useMemo(() => {
-    const now = new Date();
-    const yesterday = new Date(now);
-    yesterday.setDate(now.getDate() - 1);
-    const start = new Date(
-      yesterday.getFullYear(),
-      yesterday.getMonth(),
-      yesterday.getDate()
-    );
-    const end = new Date(
-      yesterday.getFullYear(),
-      yesterday.getMonth(),
-      yesterday.getDate(),
-      23,
-      59,
-      59,
-      999
-    );
-    return { startOfYesterday: start, endOfYesterday: end };
-  }, []);
-
-  const expensesOfYesterday = useMemo(
-    () =>
-      expenses.filter((expense) => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startOfYesterday && expenseDate <= endOfYesterday;
-      }),
-    [expenses, startOfYesterday, endOfYesterday]
-  );
-
-  const totalYesterday = useMemo(
-    () =>
-      expensesOfYesterday.reduce(
-        (total, expense) => total + Number(expense.amount),
-        0
-      ),
-    [expensesOfYesterday]
-  );
-  // END OF YESTERDAY
   return (
     <>
       <div className="dashboard-heading">
@@ -227,106 +109,45 @@ export default function Dashboard() {
           ) : (
             <>
               <div className="expenses-child">
-                {/* TODAY */}
-                {expensesOfCurrentDate.length > 0 ? (
-                  <ConditionalMessage
-                    condition={expensesOfCurrentDate.length > 0}
-                    type={`Today`}
-                    message={
-                      expensesOfCurrentDate.length === 1
-                        ? `You have ${expensesOfCurrentDate.length} expense today - TOTAL: PHP ${totalCurrent}`
-                        : `You have ${expensesOfCurrentDate.length} expenses today - TOTAL: PHP ${totalCurrent}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfCurrentDate.length === 0}
-                    type={`Today`}
-                    message={`You have no expenses today.`}
-                  />
-                )}
-
-                {/* YESTERDAY */}
-                {expensesOfYesterday.length > 0 ? (
-                  <ConditionalMessage
-                    condition={expensesOfYesterday.length > 0}
-                    type={`Yesterday`}
-                    message={
-                      expensesOfYesterday.length === 1
-                        ? `You have ${expensesOfYesterday.length} expense yesterday - TOTAL: PHP ${totalYesterday}`
-                        : `You have ${expensesOfYesterday.length} expenses yesterday - TOTAL: PHP ${totalYesterday}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfYesterday.length === 0}
-                    type={`Yesterday`}
-                    message={`You did not spend on anything yesterday!`}
-                  />
-                )}
-
-                {/* THIS WEEK */}
-                {countExpensesThisWeek.length > 0 ? (
-                  <ConditionalMessage
-                    condition={countExpensesThisWeek.length > 0}
-                    type={`This Week`}
-                    message={
-                      countExpensesThisWeek.length === 1
-                        ? `You have ${countExpensesThisWeek.length} expense this week - TOTAL: PHP ${totalThisWeek}`
-                        : `You have ${countExpensesThisWeek.length} expenses this week - TOTAL: PHP ${totalThisWeek}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={countExpensesThisWeek.length === 0}
-                    type={`This Week`}
-                    message={`You have no expenses this week`}
-                  />
-                )}
-
-                {/* LAST WEEK */}
-                {expensesOfPrevWeek.length > 0 ? (
-                  <ConditionalMessage
-                    condition={expensesOfPrevWeek.length > 0}
-                    type={`Last Week`}
-                    message={
-                      expensesOfPrevWeek.length === 1
-                        ? `You have ${expensesOfPrevWeek.length} expense last week - TOTAL: PHP ${totalPrevWeek}`
-                        : `You have ${expensesOfPrevWeek.length} expenses last week - TOTAL: PHP ${totalPrevWeek}`
-                    }
-                  />
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfPrevWeek.length === 0}
-                    type={`Last Week`}
-                    message={`You have no expenses last week`}
-                  />
-                )}
-
+                <ConditionalMessage
+                  condition={expensesOfCurrentDate.length > 0}
+                  type={`Today`}
+                  message={`You have ${expensesOfCurrentDate.length} expense${
+                    expensesOfCurrentDate.length === 1 ? "" : "s"
+                  } today - TOTAL:  PHP ${totalCurrent}`}
+                />
+                <ConditionalMessage
+                  condition={expensesOfYesterday.length > 0}
+                  type={`Yesterday`}
+                  message={`You have ${expensesOfYesterday.length} expense${
+                    expensesOfYesterday.length === 1 ? "" : "s"
+                  } yesterday - TOTAL:  PHP ${totalYesterday}`}
+                />
+                <ConditionalMessage
+                  condition={countExpensesThisWeek.length > 0}
+                  type={`This Week`}
+                  message={`You have ${countExpensesThisWeek.length} expense${
+                    countExpensesThisWeek.length === 1 ? "" : "s"
+                  } this week - TOTAL:  PHP ${totalThisWeek}`}
+                />
+                <ConditionalMessage
+                  condition={expensesOfPrevWeek.length > 0}
+                  type={`Last Week`}
+                  message={`You have ${expensesOfPrevWeek.length} expense${
+                    expensesOfPrevWeek.length === 1 ? "" : "s"
+                  } last week - TOTAL:  PHP ${totalPrevWeek}`}
+                />
                 <BarChart />
               </div>
 
               <div className="expenses-child">
-                {expensesOfCurrentMonth.length > 0 ? (
-                  <>
-                    <ConditionalMessage
-                      condition={expensesOfCurrentMonth.length > 0}
-                      type={`This Month's Expenses`}
-                      message={
-                        expensesOfCurrentMonth.length === 1
-                          ? `You have ${expensesOfCurrentMonth.length} expense this month - TOTAL: PHP ${totalCurrMonth}`
-                          : `You have ${expensesOfCurrentMonth.length} expenses this month - TOTAL: PHP ${totalCurrMonth}`
-                      }
-                    />
-                  </>
-                ) : (
-                  <ConditionalMessage
-                    condition={expensesOfCurrentMonth.length === 0}
-                    type={`This Month's Expenses`}
-                    message={`You have no expenses this month`}
-                  />
-                )}
-
+                <ConditionalMessage
+                  condition={expensesOfCurrentMonth.length > 0}
+                  type={`This Month's Expenses`}
+                  message={`You have ${expensesOfCurrentMonth.length} expense${
+                    expensesOfCurrentMonth.length === 1 ? "" : "s"
+                  } this month - TOTAL:  PHP ${totalCurrMonth}`}
+                />
                 <MonthList />
               </div>
             </>
@@ -335,4 +156,108 @@ export default function Dashboard() {
       )}
     </>
   );
+}
+
+function calculateDateRanges() {
+  const now = new Date();
+  const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1));
+  startOfWeek.setHours(0, 0, 0, 0);
+  const endOfWeek = new Date(startOfWeek.getTime());
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+  endOfWeek.setHours(23, 59, 59, 999);
+
+  const startOfPrevWeek = new Date(startOfWeek.getTime());
+  startOfPrevWeek.setDate(startOfPrevWeek.getDate() - 7);
+  const endOfPrevWeek = new Date(startOfPrevWeek.getTime());
+  endOfPrevWeek.setDate(startOfPrevWeek.getDate() + 6);
+  endOfPrevWeek.setHours(23, 59, 59, 999);
+
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  endOfMonth.setHours(23, 59, 59, 999);
+
+  const startOfCurrentDate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  const endOfCurrentDate = new Date(startOfCurrentDate.getTime());
+  endOfCurrentDate.setHours(23, 59, 59, 999);
+
+  const startOfYesterday = new Date(startOfCurrentDate.getTime());
+  startOfYesterday.setDate(startOfCurrentDate.getDate() - 1);
+  const endOfYesterday = new Date(startOfYesterday.getTime());
+  endOfYesterday.setHours(23, 59, 59, 999);
+
+  return {
+    startOfWeek,
+    endOfWeek,
+    startOfPrevWeek,
+    endOfPrevWeek,
+    startOfMonth,
+    endOfMonth,
+    startOfCurrentDate,
+    endOfCurrentDate,
+    startOfYesterday,
+    endOfYesterday,
+  };
+}
+
+function calculateExpenseSummaries(expenses, dateRanges) {
+  const filterExpenses = (start, end) => {
+    return expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      return expenseDate >= start && expenseDate <= end;
+    });
+  };
+
+  const calculateTotal = (expenses) => {
+    return expenses.reduce(
+      (total, expense) => total + Number(expense.amount),
+      0
+    );
+  };
+
+  const countExpensesThisWeek = filterExpenses(
+    dateRanges.startOfWeek,
+    dateRanges.endOfWeek
+  );
+  const totalThisWeek = calculateTotal(countExpensesThisWeek);
+
+  const expensesOfPrevWeek = filterExpenses(
+    dateRanges.startOfPrevWeek,
+    dateRanges.endOfPrevWeek
+  );
+  const totalPrevWeek = calculateTotal(expensesOfPrevWeek);
+
+  const expensesOfCurrentMonth = filterExpenses(
+    dateRanges.startOfMonth,
+    dateRanges.endOfMonth
+  );
+  const totalCurrMonth = calculateTotal(expensesOfCurrentMonth);
+
+  const expensesOfCurrentDate = filterExpenses(
+    dateRanges.startOfCurrentDate,
+    dateRanges.endOfCurrentDate
+  );
+  const totalCurrent = calculateTotal(expensesOfCurrentDate);
+
+  const expensesOfYesterday = filterExpenses(
+    dateRanges.startOfYesterday,
+    dateRanges.endOfYesterday
+  );
+  const totalYesterday = calculateTotal(expensesOfYesterday);
+
+  return {
+    countExpensesThisWeek,
+    totalThisWeek,
+    expensesOfPrevWeek,
+    totalPrevWeek,
+    expensesOfCurrentMonth,
+    totalCurrMonth,
+    expensesOfCurrentDate,
+    totalCurrent,
+    expensesOfYesterday,
+    totalYesterday,
+  };
 }
