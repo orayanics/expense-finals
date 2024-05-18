@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getDatabase, ref, push, set } from "firebase/database";
+import { getDatabase, ref, push, set, runTransaction } from "firebase/database";
 import { getUser } from "../utils/getUser";
 import { successAlert, errorAlert } from "../utils/toastAlert";
 
@@ -15,6 +15,9 @@ export default function ExpenseInput() {
   const [expenseAmount, setExpenseAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const db = getDatabase();
+  const userId = getUser().userId;
+
   const handleExpenseSubmit = async (event) => {
     event.preventDefault();
     const amount = parseFloat(expenseAmount);
@@ -28,27 +31,33 @@ export default function ExpenseInput() {
 
     setIsLoading(true);
 
-    const db = getDatabase();
-    const userId = getUser().userId;
-
-    // unique id for new expense
     const expenseListRef = ref(db, `users/${userId}/expenses`);
     const newExpenseRef = push(expenseListRef);
 
-    set(newExpenseRef, {
-      date: new Date().toISOString(),
-      type: expenseName,
-      amount: amount,
-    })
-      .then(() => {
-        successAlert("Added successfully");
-        setExpenseName("");
-        setExpenseAmount("");
-      })
-      .catch((error) => {
-        errorAlert("Failed to add expense. Please try again.");
-      })
-      .finally(() => setIsLoading(false));
+    try {
+      await set(newExpenseRef, {
+        date: new Date().toISOString(),
+        type: expenseName,
+        amount: amount,
+      });
+
+      // minus sa balance
+      const balanceRef = ref(db, `users/${userId}/balance`);
+      await runTransaction(balanceRef, (currentBalance) => {
+        if (currentBalance === null) {
+          return { amount: -amount }; // if balance is null, set to negative amount
+        }
+        return { amount: currentBalance.amount - amount };
+      });
+
+      successAlert("Expense added successfully");
+      setExpenseName("");
+      setExpenseAmount("");
+    } catch (error) {
+      errorAlert("Failed to add expense. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

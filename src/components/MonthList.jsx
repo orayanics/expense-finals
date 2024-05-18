@@ -15,7 +15,7 @@ const endOfMonth = new Date(
   999
 );
 
-export default function MonthList() {
+export default function MonthList({ monthTotal }) {
   const { userId } = getUser();
   const [expenses, setExpenses] = useState([]);
 
@@ -57,6 +57,12 @@ export default function MonthList() {
 
   return (
     <>
+      <p className="dashboard-title-date">Expenses of the Month</p>
+
+      <div className="dashboard-card">
+        <p className="card-heading">₱ {monthTotal}</p>
+        <p className="card-text">Total Expenses</p>
+      </div>
       <div
         style={{ maxHeight: "400px", overflowY: "auto", borderRadius: "13px" }}
       >

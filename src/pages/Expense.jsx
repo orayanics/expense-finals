@@ -4,6 +4,7 @@ import "../styles/expense.css";
 // Components
 import ExpenseInput from "../components/ExpenseInput";
 import ExpenseList from "../components/ExpenseList";
+import ExpenseStats from "../components/ExpenseStats";
 
 // Utils
 import ConditionalMessage from "../components/ConditionalMessage";
@@ -26,28 +27,7 @@ export default function Expense() {
         </p>
       </div>
 
-      <div className="expense-container">
-        <div className="expense-child">
-          <div className="currency">
-            <p>0.000</p>
-            <i class="bi bi-plus-lg"></i>
-          </div>
-
-          <h3>Balance</h3>
-        </div>
-
-        <div className="expense-child child-col">
-          <div>
-            <p>0.000</p>
-            <h3>Expenses</h3>
-          </div>
-
-          <div>
-            <p>0.000</p>
-            <h3>Income</h3>
-          </div>
-        </div>
-      </div>
+      <ExpenseStats totalAmount={totalAmount}/>
 
       <div className="container-two">
         <ExpenseInput />
@@ -57,25 +37,6 @@ export default function Expense() {
           setIsLoading={setIsLoading}
         />
       </div>
-
-      {/* <div>
-        <ExpenseInput />
-      </div>
-
-      <div>
-        
-      </div>
-
-      {isLoading ? (
-        <h6>Loading...</h6>
-      ) : (
-        <div className="expenses-total">
-          <ConditionalMessage
-            condition={!isLoading}
-            message={`Total Amount: PHP ${totalAmount}`}
-          />
-        </div>
-      )} */}
     </>
   );
 }

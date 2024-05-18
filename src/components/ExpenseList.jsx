@@ -5,6 +5,7 @@ import { getUser } from "../utils/getUser";
 // ALERTS AND MODAL
 import { successAlert, errorAlert } from "../utils/toastAlert";
 import { Modal, Button } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   const [expenses, setExpenses] = useState([]);
@@ -123,7 +124,9 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
       <h2 className="h2">Your Expenses</h2>
       {loading ? (
-        <h5 className="h5">Loading...</h5>
+        <div>
+          <Spinner animation="border" variant="warning" className="loading" />
+        </div>
       ) : (
         <>
           <div style={{ maxHeight: "500px", overflowY: "auto" }}>

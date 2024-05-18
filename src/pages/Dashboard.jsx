@@ -1,9 +1,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getUser } from "../utils/getUser";
+
+// Components
 import ConditionalMessage from "../components/ConditionalMessage";
 import MonthList from "../components/MonthList";
 import BarChart from "../components/BarChart";
+import { Spinner } from "react-bootstrap";
+
 import "../styles/dashboard.css";
 
 export default function Dashboard() {
@@ -105,7 +109,7 @@ export default function Dashboard() {
       {userId && (
         <div className="expenses-container">
           {isLoading ? (
-            <h3>Loading...</h3>
+            <Spinner animation="border" variant="warning" className="loading" />
           ) : (
             <>
               <div className="expenses-child">
@@ -141,14 +145,7 @@ export default function Dashboard() {
               </div>
 
               <div className="expenses-child">
-                <ConditionalMessage
-                  condition={expensesOfCurrentMonth.length > 0}
-                  type={`This Month's Expenses`}
-                  message={`You have ${expensesOfCurrentMonth.length} expense${
-                    expensesOfCurrentMonth.length === 1 ? "" : "s"
-                  } this month - TOTAL:  PHP ${totalCurrMonth}`}
-                />
-                <MonthList />
+                <MonthList monthTotal={totalCurrMonth}/>
               </div>
             </>
           )}
