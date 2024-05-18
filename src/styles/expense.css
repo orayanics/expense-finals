@@ -20,29 +20,22 @@ body {
 
 .h1 {
   font-weight: 700;
-  margin:50px 0px 0px 20px;
+  /* margin:50px 0px 0px 20px; */
 }
 
 .h2 {
   font-weight: bold;
-  margin: 30px 0px 0px 20px;
+  /* margin: 30px 0px 0px 20px; */
 }
 
-.date-today {
-  margin-left: 20px;
-}
-
-form {
-  margin-left:20px;
-}
 .expense-input {
   border-radius: 13px;
   border: 1px solid #ccc;
   background-color: #f6f6f6;
   padding: 12px;
   width: 100%;
-  margin: 0px 10px 0px 0px;
-  max-width: 300px; /* Adjust as needed */
+  margin-bottom: 1em;
+  /* max-width: 300px; Adjust as needed */
   box-sizing: border-box;
 }
 
@@ -64,6 +57,24 @@ input[type="text"],
   box-sizing: border-box;
   border-radius: 13px;
   border: none;
+  background-color: #f6f6f6;
+  color: #222222;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  margin-left: 0px;
+}
+
+.expense-add-btn:hover {
+  background-color: #222222;
+  color: #f6f6f6;
+  transition-duration: 0.7s;
+}
+
+.expense-add-btn-2 {
+  box-sizing: border-box;
+  border-radius: 13px;
+  border: none;
   background-color: #222222;
   color: #f6f6f6;
   padding: 12px;
@@ -72,28 +83,59 @@ input[type="text"],
   margin-left: 0px;
 }
 
-.expense-add-btn:hover {
-  background-color: black;
+.expense-add-btn-2:hover {
+  transform: scale(1.1);
   transition-duration: 0.7s;
-}
-
-ul {
-  list-style-type: none;
 }
 
 .expenses-list {
   border-radius: 13px;
-  border: none;
-  background-color: #222222;
+  background: linear-gradient(#2e2e2e, #222222);
   color: #f6f6f6;
-  padding: 12px;
+  padding: 1em;
   width: 100%;
-  max-width: 500px;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.list-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.expenses-list p {
+  font-weight: 600;
+  font-size: 1.25em;
+  margin: 0;
+  text-align: right;
+}
+
+.expenses-list .list-child {
+  padding: 1em;
+}
+
+.list-child h4 {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-buttons p {
+  margin: 0;
+}
+
+.amount-overflow {
+  padding: 1em;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .expenses-total {
-  margin-left: 50px;
+  /* margin-left: 50px; */
   text-transform: uppercase;
 }
 
@@ -123,9 +165,129 @@ ul {
   margin: 20px 0px 0px 50px;
 }
 
+.expense-heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+.expense-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #c5c5c5;
+}
+
+.expense-container .expense-child {
+  width: 100%;
+  margin-top: 1em;
+  padding: 1.5em;
+  background: linear-gradient(#2e2e2e, #222222);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px 0 #00000026;
+  color: rgba(202, 202, 202, 0.6);
+}
+
+.expense-child h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.expense-child p {
+  font-size: 2.5em;
+  color: #ffcd29;
+  margin: 0;
+  width: 100%;
+}
+
+.currency {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.currency i {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #222222;
+  display: flex;
+}
+
+.child-col {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-two {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.container-two div {
+  width: 100%;
+}
+
+.change-container {
+  border-radius: 13px;
+  background: linear-gradient(#2e2e2e, #222222);
+  color: #f6f6f6;
+  padding: 1em;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-logo {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  border-radius: 13px;
+  border: 1px solid #ccc;
+  background-color: #f6f6f6;
+  padding: 12px;
+  margin-bottom: 1em;
+}
+
+.input-logo i {
+  color: #222222;
+  font-size: 1.5em;
+}
+
+.loading {
+  width: 3em !important;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+}
+
+.balance-btn {
+  width: 2em;
+  height: 2em;
+  border: none;
+  outline: none;
+  background-color: #ffcd29;
+  border-radius: 0.75em;
+  padding: 0.25em;
+}
+
+.balance-btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 @media (max-width: 991px) {
-  .expenses-list {
-    margin: 0px 0px 20px 20px; /* Adjusted margin for smaller screens */
-    max-width: 90%; /* Allow element to take full width on smaller screens */
+  .expense-container,
+  .container-two {
+    flex-direction: column;
   }
 }

@@ -5,6 +5,7 @@ import { getUser } from "../utils/getUser";
 // ALERTS AND MODAL
 import { successAlert, errorAlert } from "../utils/toastAlert";
 import { Modal, Button } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 // Import date-fns functions
 import {
@@ -138,6 +139,14 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     [db, userId]
   );
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <div>
       {/* Modal for confirming delete action */}
@@ -158,7 +167,6 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
-      <h2 className="h2">Expense List</h2>
 
       {/* Sorting options */}
       <div className="sort-options">
@@ -191,76 +199,100 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </label>
       </div>
 
+
+      <h2 className="h2">Your Expenses</h2>
+
       {loading ? (
-        <h5 className="h5">Loading...</h5>
+        <div>
+          <Spinner animation="border" variant="warning" className="loading" />
+        </div>
       ) : (
         <>
-          <ul>
-            {filteredExpenses.map(
-              (
-                expense // Use filteredExpenses instead of expenses
-              ) => (
-                <li key={expense.expenseId}>
-                  {editExpense === expense.expenseId ? (
+
+          <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+            {expenses.map((expense) => (
+              <div key={expense.expenseId}>
+                {editExpense === expense.expenseId ? (
+                  <div className="change-container">
                     <div>
-                      <input
-                        type="text"
-                        value={expense.type}
-                        className="expense-input"
-                        onChange={(e) =>
-                          setExpenses((prevExpenses) =>
-                            prevExpenses.map((prevExpense) =>
-                              prevExpense.expenseId === expense.expenseId
-                                ? { ...prevExpense, type: e.target.value }
-                                : prevExpense
+                      <div className="input-logo">
+                        <i class="bi bi-tag-fill"></i>
+
+                        <input
+                          type="text"
+                          value={expense.type}
+                          className="expense-input"
+                          onChange={(e) =>
+                            setExpenses((prevExpenses) =>
+                              prevExpenses.map((prevExpense) =>
+                                prevExpense.expenseId === expense.expenseId
+                                  ? { ...prevExpense, type: e.target.value }
+                                  : prevExpense
+                              )
                             )
-                          )
-                        }
-                      />
-                      <input
-                        type="number"
-                        value={expense.amount}
-                        className="expense-input"
-                        onChange={(e) =>
-                          setExpenses((prevExpenses) =>
-                            prevExpenses.map((prevExpense) =>
-                              prevExpense.expenseId === expense.expenseId
-                                ? { ...prevExpense, amount: e.target.value }
-                                : prevExpense
+                          }
+                        />
+                      </div>
+
+                      <div className="input-logo">
+                        <i class="bi bi-cash"></i>
+                        <input
+                          type="number"
+                          value={expense.amount}
+                          className="expense-input"
+                          onChange={(e) =>
+                            setExpenses((prevExpenses) =>
+                              prevExpenses.map((prevExpense) =>
+                                prevExpense.expenseId === expense.expenseId
+                                  ? { ...prevExpense, amount: e.target.value }
+                                  : prevExpense
+                              )
                             )
-                          )
-                        }
-                      />
-                      <button
-                        className="expense-add-btn"
-                        onClick={() => handleEdit(expense, expense.expenseId)}
-                      >
-                        ✓
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="expenses-list">
-                      <a onClick={() => setEditExpense(expense.expenseId)}>
-                        <img
-                          src="/pencil.png"
-                          alt="Edit"
-                          className="edit-btn"
+                          }
                         />
-                      </a>
-                      <a onClick={() => handleDelete(expense.expenseId)}>
-                        <img
-                          src="/trash.png"
-                          alt="Delete"
-                          className="delete-btn"
-                        />
-                      </a>
-                      {expense.type} - PHP {expense.amount}
+                      </div>
                     </div>
-                  )}
-                </li>
-              )
-            )}
-          </ul>
+
+                    <button
+                      className="expense-add-btn"
+                      onClick={() => handleEdit(expense, expense.expenseId)}
+                    >
+                      ✓
+                    </button>
+                  </div>
+                ) : (
+                  <div className="expenses-list">
+                    <div className="list-child">
+                      <h4>{expense.type}</h4>
+                      <div className="list-buttons">
+                        <p className="month-date">{formatDate(expense.date)}</p>
+
+                        <a onClick={() => setEditExpense(expense.expenseId)}>
+                          <img
+                            src="/pencil.png"
+                            alt="Edit"
+                            className="edit-btn"
+                          />
+                        </a>
+
+                        <a onClick={() => handleDelete(expense.expenseId)}>
+                          <img
+                            src="/trash.png"
+                            alt="Delete"
+                            className="delete-btn"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                    <div className="amount-overflow">
+                      <p>{`₱ ${expense.amount}`}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
         </>
       )}
     </div>

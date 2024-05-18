@@ -11,6 +11,9 @@ nav {
   overflow-x: hidden;
   transition: width 0.3s ease;
   padding: 20px;
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
 }
 
 .nav-btn {
@@ -70,6 +73,17 @@ a {
 .logout-btn:hover {
   opacity: 0.5; /* Adjust opacity on hover */
   transition-duration: 0.7s;
+}
+
+.logout-mobile {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid #f4f4f4;
+}
+
+.mobile-list a:hover, .mobile-list button:hover {
+  background-color: #383838;
 }
 
 .mobile-container {

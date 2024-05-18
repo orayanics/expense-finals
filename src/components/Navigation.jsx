@@ -38,7 +38,7 @@ export default function Navigation() {
             </a>
 
             <a href={`/Expense`} className="">
-              <p className="nav-btn">Your Expenses</p>
+              <p className="nav-btn">Expenses</p>
             </a>
           </div>
         </div>
@@ -53,13 +53,16 @@ export default function Navigation() {
             </a>
           </div>
           <button onClick={showLinks}>
-            <i class="bi bi-list"></i>
+            <i className="bi bi-list"></i>
           </button>
         </div>
         {showMobileList && (
           <div className="mobile-list">
-            <a href="/dashboard"> Dashboard</a>
-            <a href="/expense"> Your Expenses </a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/expense">Expenses </a>
+            <button onClick={logout} className="logout-mobile">
+              Logout
+            </button>
           </div>
         )}
       </div>
