@@ -91,7 +91,6 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         return date >= start && date <= end;
       });
     }
-
     setFilteredExpenses(filtered);
   }, [sortByToday, sortByWeek, sortByMonth, expenses]);
 
@@ -147,9 +146,12 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     });
   };
 
+  const formatCurrency = (amount) => {
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+  };
+
   return (
     <div>
-      {/* Modal for confirming delete action */}
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Expense</Modal.Title>
@@ -167,15 +169,14 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
-
       {/* Sorting options */}
       <div className="sort-options">
         <label>
           <input
             type="checkbox"
             checked={sortByToday}
-            onChange={() => setSortByToday(!sortByToday)} // Toggle sort by today
-            disabled={sortByWeek || sortByMonth} // Disable if sort by week or month is active
+            onChange={() => setSortByToday(!sortByToday)}
+            disabled={sortByWeek || sortByMonth}
           />
           My Expenses Today
         </label>
@@ -183,8 +184,8 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
           <input
             type="checkbox"
             checked={sortByWeek}
-            onChange={() => setSortByWeek(!sortByWeek)} // Toggle sort by week
-            disabled={sortByToday || sortByMonth} // Disable if sort by today or month is active
+            onChange={() => setSortByWeek(!sortByWeek)}
+            disabled={sortByToday || sortByMonth}
           />
           My Expenses this Week
         </label>
@@ -192,13 +193,12 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
           <input
             type="checkbox"
             checked={sortByMonth}
-            onChange={() => setSortByMonth(!sortByMonth)} // Toggle sort by month
-            disabled={sortByToday || sortByWeek} // Disable if sort by today or week is active
+            onChange={() => setSortByMonth(!sortByMonth)}
+            disabled={sortByToday || sortByWeek}
           />
           My Expenses this Month
         </label>
       </div>
-
 
       <h2 className="h2">Your Expenses</h2>
 
@@ -208,9 +208,8 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </div>
       ) : (
         <>
-
           <div style={{ maxHeight: "500px", overflowY: "auto" }}>
-            {expenses.map((expense) => (
+            {filteredExpenses.map((expense) => (
               <div key={expense.expenseId}>
                 {editExpense === expense.expenseId ? (
                   <div className="change-container">
@@ -285,14 +284,13 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
                       </div>
                     </div>
                     <div className="amount-overflow">
-                      <p>{`₱ ${expense.amount}`}</p>
+                      <p>{`${formatCurrency(expense.amount)}`}</p>
                     </div>
                   </div>
                 )}
               </div>
             ))}
           </div>
-
         </>
       )}
     </div>

@@ -90,6 +90,10 @@ export default function Dashboard() {
     endOfYesterday,
   ]);
 
+  const formatCurrency = (amount) => {
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+  };
+
   return (
     <>
       <div className="dashboard-heading">
@@ -118,34 +122,34 @@ export default function Dashboard() {
                   type={`Today`}
                   message={`You have ${expensesOfCurrentDate.length} expense${
                     expensesOfCurrentDate.length === 1 ? "" : "s"
-                  } today - TOTAL:  PHP ${totalCurrent}`}
+                  } today - TOTAL: ${formatCurrency(totalCurrent)}`}
                 />
                 <ConditionalMessage
                   condition={expensesOfYesterday.length > 0}
                   type={`Yesterday`}
                   message={`You have ${expensesOfYesterday.length} expense${
                     expensesOfYesterday.length === 1 ? "" : "s"
-                  } yesterday - TOTAL:  PHP ${totalYesterday}`}
+                  } yesterday - TOTAL: ${formatCurrency(totalYesterday)}`}
                 />
                 <ConditionalMessage
                   condition={countExpensesThisWeek.length > 0}
                   type={`This Week`}
                   message={`You have ${countExpensesThisWeek.length} expense${
                     countExpensesThisWeek.length === 1 ? "" : "s"
-                  } this week - TOTAL:  PHP ${totalThisWeek}`}
+                  } this week - TOTAL: ${formatCurrency(totalThisWeek)}`}
                 />
                 <ConditionalMessage
                   condition={expensesOfPrevWeek.length > 0}
                   type={`Last Week`}
                   message={`You have ${expensesOfPrevWeek.length} expense${
                     expensesOfPrevWeek.length === 1 ? "" : "s"
-                  } last week - TOTAL:  PHP ${totalPrevWeek}`}
+                  } last week - TOTAL: ${formatCurrency(totalPrevWeek)}`}
                 />
                 <BarChart />
               </div>
 
               <div className="expenses-child">
-                <MonthList monthTotal={totalCurrMonth}/>
+                <MonthList monthTotal={formatCurrency(totalCurrMonth)}/>
               </div>
             </>
           )}
@@ -258,3 +262,4 @@ function calculateExpenseSummaries(expenses, dateRanges) {
     totalYesterday,
   };
 }
+

@@ -67,6 +67,10 @@ export default function ExpenseStats({ totalAmount }) {
     }
   };
 
+  const formatCurrency = (amount) => {
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+  };
+
   return (
     <>
       <NegativeBalance show={modalShow} onHide={() => setModalShow(false)} />
@@ -74,7 +78,7 @@ export default function ExpenseStats({ totalAmount }) {
       <div className="expense-container">
         <div className="expense-child">
           <div className="currency">
-            <p>{`₱ ${balance.toFixed(2)}`}</p>
+            <p>{`${formatCurrency(balance)}`}</p>
             {clickBalance ? (
               <>
                 <input
@@ -101,7 +105,7 @@ export default function ExpenseStats({ totalAmount }) {
 
         <div className="expense-child child-col">
           <div>
-            <p>₱ {totalAmount.toFixed(2)}</p>
+            <p>{formatCurrency(totalAmount)}</p>
             <h3>Expenses</h3>
           </div>
         </div>

@@ -55,12 +55,16 @@ export default function MonthList({ monthTotal }) {
     });
   };
 
+  const formatCurrency = (amount) => {
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+  };
+
   return (
     <>
       <p className="dashboard-title-date">Expenses of the Month</p>
 
       <div className="dashboard-card">
-        <p className="card-heading">₱ {monthTotal}</p>
+        <p className="card-heading">{monthTotal}</p>
         <p className="card-text">Total Expenses</p>
       </div>
       <div
@@ -70,7 +74,7 @@ export default function MonthList({ monthTotal }) {
           <div key={expense.id} className="month-container">
             <div className="month-first">
               <p>{expense.type}</p>
-              <p className="month-amount">₱ {expense.amount}</p>
+              <p className="month-amount">{formatCurrency(expense.amount)}</p>
             </div>
             <p className="month-date">{formatDate(expense.date)}</p>
           </div>
