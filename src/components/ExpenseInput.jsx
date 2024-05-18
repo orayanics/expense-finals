@@ -86,7 +86,7 @@ export default function ExpenseInput() {
             className="expense-add-btn-2"
             disabled={isLoading}
           >
-            {isLoading ? "Adding..." : "+"}
+            {isLoading ? "+" : "+"}
           </button>
         </form>
       </div>

@@ -211,6 +211,8 @@ input[type="text"],
 .currency i {
   font-size: 1.5em;
   font-weight: bold;
+  color: #222222;
+  display: flex;
 }
 
 .child-col {
@@ -265,6 +267,22 @@ input[type="text"],
   height: 3em;
   display: flex;
   justify-content: center;
+}
+
+.balance-btn {
+  width: 2em;
+  height: 2em;
+  border: none;
+  outline: none;
+  background-color: #ffcd29;
+  border-radius: 0.75em;
+  padding: 0.25em;
+}
+
+.balance-btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 @media (max-width: 991px) {
