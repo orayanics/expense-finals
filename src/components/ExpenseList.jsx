@@ -7,8 +7,19 @@ import { successAlert, errorAlert } from "../utils/toastAlert";
 import { Modal, Button } from "react-bootstrap";
 import { Spinner } from "react-bootstrap";
 
+// Import date-fns functions
+import {
+  startOfToday,
+  endOfToday,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+} from "date-fns";
+
 export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   const [expenses, setExpenses] = useState([]);
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
   const [editExpense, setEditExpense] = useState(null);
   const [loading, setLoading] = useState(true);
   const { userId } = getUser();
@@ -16,11 +27,15 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   // Modals
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  const [expenseToDelete, setExpenseToDelete] = useState(null); // Store expense to delete
+  const [expenseToDelete, setExpenseToDelete] = useState(null);
+
+  const [sortByToday, setSortByToday] = useState(false);
+  const [sortByWeek, setSortByWeek] = useState(false);
+  const [sortByMonth, setSortByMonth] = useState(false);
 
   const db = getDatabase();
 
-  // THIS IS FOR FETCHING WOOF
+  // Fetch data from Firebase
   const fetchData = useCallback(() => {
     const unsubscribe = onValue(
       ref(db, `users/${userId}/expenses`),
@@ -40,6 +55,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
         setTotalAmount(totalAmount);
         setExpenses(allExpenses);
+        setFilteredExpenses(allExpenses);
         setLoading(false);
         setIsLoading(false);
       }
@@ -50,12 +66,42 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
   useEffect(() => fetchData(), [fetchData]);
 
-  // THIS IS FOR DELETING WOOF
+  useEffect(() => {
+    let filtered = expenses;
+
+    if (sortByToday) {
+      const start = startOfToday();
+      const end = endOfToday();
+      filtered = expenses.filter((expense) => {
+        const date = new Date(expense.date);
+        return date >= start && date <= end;
+      });
+    } else if (sortByWeek) {
+      const start = startOfWeek(new Date());
+      const end = endOfWeek(new Date());
+      filtered = expenses.filter((expense) => {
+        const date = new Date(expense.date);
+        return date >= start && date <= end;
+      });
+    } else if (sortByMonth) {
+      const start = startOfMonth(new Date());
+      const end = endOfMonth(new Date());
+      filtered = expenses.filter((expense) => {
+        const date = new Date(expense.date);
+        return date >= start && date <= end;
+      });
+    }
+
+    setFilteredExpenses(filtered);
+  }, [sortByToday, sortByWeek, sortByMonth, expenses]);
+
+  // Handle delete action
   const handleDelete = useCallback((expenseId) => {
     setIsModalOpen(true);
     setExpenseToDelete(expenseId);
   }, []);
 
+  // Confirm delete action
   const confirmDelete = useCallback(() => {
     if (expenseToDelete) {
       remove(ref(db, `users/${userId}/expenses/${expenseToDelete}`));
@@ -71,7 +117,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     }
   }, [deleteSuccess]);
 
-  // THIS IS FOR EDITING WOOF
+  // Handle edit action
   const handleEdit = useCallback(
     (updatedExpense, expenseId) => {
       if (!validateInput(updatedExpense.type, updatedExpense.amount)) {
@@ -103,15 +149,14 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
 
   return (
     <div>
+      {/* Modal for confirming delete action */}
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Expense</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
           <p>Are you sure to delete this expense?</p>
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
             Close
@@ -122,13 +167,48 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
+
+      {/* Sorting options */}
+      <div className="sort-options">
+        <label>
+          <input
+            type="checkbox"
+            checked={sortByToday}
+            onChange={() => setSortByToday(!sortByToday)} // Toggle sort by today
+            disabled={sortByWeek || sortByMonth} // Disable if sort by week or month is active
+          />
+          My Expenses Today
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={sortByWeek}
+            onChange={() => setSortByWeek(!sortByWeek)} // Toggle sort by week
+            disabled={sortByToday || sortByMonth} // Disable if sort by today or month is active
+          />
+          My Expenses this Week
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={sortByMonth}
+            onChange={() => setSortByMonth(!sortByMonth)} // Toggle sort by month
+            disabled={sortByToday || sortByWeek} // Disable if sort by today or week is active
+          />
+          My Expenses this Month
+        </label>
+      </div>
+
+
       <h2 className="h2">Your Expenses</h2>
+
       {loading ? (
         <div>
           <Spinner animation="border" variant="warning" className="loading" />
         </div>
       ) : (
         <>
+
           <div style={{ maxHeight: "500px", overflowY: "auto" }}>
             {expenses.map((expense) => (
               <div key={expense.expenseId}>
@@ -212,6 +292,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
               </div>
             ))}
           </div>
+
         </>
       )}
     </div>
@@ -222,7 +303,6 @@ function validateInput(type, amount) {
   const typeRegex = /^[a-zA-Z0-9\s]*$/;
   const isType = typeRegex.test(type);
 
-  // Check if the type is a string and the amount is a number
   if (!type || !amount) {
     return false;
   }
