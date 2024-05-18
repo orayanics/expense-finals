@@ -5,7 +5,7 @@ import { successAlert, errorAlert } from "../utils/toastAlert";
 
 function validateInput(type, amount) {
   const typeRegex = /^[a-zA-Z0-9\s]+$/;
-  const isTypeValid = typeRegex.test(type);
+  const isTypeValid = typeRegex.test(type) && type.length <= 155;
   const isAmountValid = !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
   return isTypeValid && isAmountValid;
 }

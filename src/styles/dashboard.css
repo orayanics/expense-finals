@@ -102,8 +102,19 @@ h6 {
   font-size: 1.25em;
   color: #f6f6f6;
   margin: 0;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.month-amount {
+  width: 250px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .month-date {
   font-size: 1em;
   font-weight: 600;

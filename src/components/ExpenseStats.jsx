@@ -59,7 +59,7 @@ export default function ExpenseStats({totalAmount}) {
     <div className="expense-container">
       <div className="expense-child">
         <div className="currency">
-          <p>{balance.toFixed(2)}</p>
+          <p>{`₱ ${balance.toFixed(2)}`}</p>
           {clickBalance ? (
             <>
               <input
@@ -83,7 +83,7 @@ export default function ExpenseStats({totalAmount}) {
 
       <div className="expense-child child-col">
         <div>
-          <p>{totalAmount.toFixed(2)}</p>
+          <p>₱ {totalAmount.toFixed(2)}</p>
           <h3>Expenses</h3>
         </div>
       </div>

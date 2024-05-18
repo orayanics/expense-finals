@@ -108,13 +108,30 @@ input[type="text"],
   font-weight: 600;
   font-size: 1.25em;
   margin: 0;
+  text-align: right;
 }
 
 .expenses-list .list-child {
   padding: 1em;
 }
+
+.list-child h4 {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .list-buttons p {
   margin: 0;
+}
+
+.amount-overflow {
+  padding: 1em;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .expenses-total {
@@ -182,6 +199,7 @@ input[type="text"],
   font-size: 2.5em;
   color: #ffcd29;
   margin: 0;
+  width: 100%;
 }
 
 .currency {

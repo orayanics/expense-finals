@@ -204,7 +204,9 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
                         </a>
                       </div>
                     </div>
-                    <p>{expense.amount}</p>
+                    <div className="amount-overflow">
+                      <p>{`₱ ${expense.amount}`}</p>
+                    </div>
                   </div>
                 )}
               </div>

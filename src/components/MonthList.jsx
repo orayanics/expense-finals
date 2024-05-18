@@ -70,7 +70,7 @@ export default function MonthList({ monthTotal }) {
           <div key={expense.id} className="month-container">
             <div className="month-first">
               <p>{expense.type}</p>
-              <p>₱ {expense.amount}</p>
+              <p className="month-amount">₱ {expense.amount}</p>
             </div>
             <p className="month-date">{formatDate(expense.date)}</p>
           </div>
