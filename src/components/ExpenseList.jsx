@@ -92,6 +92,14 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     [db, userId]
   );
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <div>
       <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
@@ -113,44 +121,55 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
-      <h2 className="h2">Expense List</h2>
+      <h2 className="h2">Your Expenses</h2>
       {loading ? (
         <h5 className="h5">Loading...</h5>
       ) : (
         <>
-          <ul style={{ maxHeight: "500px", overflowY: "auto" }}>
+          <div style={{ maxHeight: "500px", overflowY: "auto" }}>
             {expenses.map((expense) => (
-              <li key={expense.expenseId}>
+              <div key={expense.expenseId}>
                 {editExpense === expense.expenseId ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={expense.type}
-                      className="expense-input"
-                      onChange={(e) =>
-                        setExpenses((prevExpenses) =>
-                          prevExpenses.map((prevExpense) =>
-                            prevExpense.expenseId === expense.expenseId
-                              ? { ...prevExpense, type: e.target.value }
-                              : prevExpense
-                          )
-                        )
-                      }
-                    />
-                    <input
-                      type="number"
-                      value={expense.amount}
-                      className="expense-input"
-                      onChange={(e) =>
-                        setExpenses((prevExpenses) =>
-                          prevExpenses.map((prevExpense) =>
-                            prevExpense.expenseId === expense.expenseId
-                              ? { ...prevExpense, amount: e.target.value }
-                              : prevExpense
-                          )
-                        )
-                      }
-                    />
+                  <div className="change-container">
+                    <div>
+                      <div className="input-logo">
+                        <i class="bi bi-tag-fill"></i>
+
+                        <input
+                          type="text"
+                          value={expense.type}
+                          className="expense-input"
+                          onChange={(e) =>
+                            setExpenses((prevExpenses) =>
+                              prevExpenses.map((prevExpense) =>
+                                prevExpense.expenseId === expense.expenseId
+                                  ? { ...prevExpense, type: e.target.value }
+                                  : prevExpense
+                              )
+                            )
+                          }
+                        />
+                      </div>
+
+                      <div className="input-logo">
+                        <i class="bi bi-cash"></i>
+                        <input
+                          type="number"
+                          value={expense.amount}
+                          className="expense-input"
+                          onChange={(e) =>
+                            setExpenses((prevExpenses) =>
+                              prevExpenses.map((prevExpense) =>
+                                prevExpense.expenseId === expense.expenseId
+                                  ? { ...prevExpense, amount: e.target.value }
+                                  : prevExpense
+                              )
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+
                     <button
                       className="expense-add-btn"
                       onClick={() => handleEdit(expense, expense.expenseId)}
@@ -160,28 +179,34 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
                   </div>
                 ) : (
                   <div className="expenses-list">
-                    {/* <button onClick={() => setEditExpense(expense.expenseId)}>
-                     Edit
-                   </button> */}
-                    <a onClick={() => setEditExpense(expense.expenseId)}>
-                      <img src="/pencil.png" alt="Edit" className="edit-btn" />
-                    </a>
-                    {/* <button onClick={() => handleDelete(expense.expenseId)}>
-                     Delete
-                   </button> */}
-                    <a onClick={() => handleDelete(expense.expenseId)}>
-                      <img
-                        src="/trash.png"
-                        alt="Delete"
-                        className="delete-btn"
-                      />
-                    </a>
-                    {expense.type} - PHP {expense.amount}
+                    <div className="list-child">
+                      <h4>{expense.type}</h4>
+                      <div className="list-buttons">
+                        <p className="month-date">{formatDate(expense.date)}</p>
+
+                        <a onClick={() => setEditExpense(expense.expenseId)}>
+                          <img
+                            src="/pencil.png"
+                            alt="Edit"
+                            className="edit-btn"
+                          />
+                        </a>
+
+                        <a onClick={() => handleDelete(expense.expenseId)}>
+                          <img
+                            src="/trash.png"
+                            alt="Delete"
+                            className="delete-btn"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                    <p>{expense.amount}</p>
                   </div>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       )}
     </div>

@@ -20,7 +20,9 @@ export default function ExpenseInput() {
     const amount = parseFloat(expenseAmount);
 
     if (!validateInput(expenseName, amount)) {
-      errorAlert("Invalid input. Please enter a valid expense name and amount.")
+      errorAlert(
+        "Invalid input. Please enter a valid expense name and amount."
+      );
       return;
     }
 
@@ -39,39 +41,46 @@ export default function ExpenseInput() {
       amount: amount,
     })
       .then(() => {
-        successAlert("Added successfully")
+        successAlert("Added successfully");
         setExpenseName("");
         setExpenseAmount("");
       })
       .catch((error) => {
-        errorAlert("Failed to add expense. Please try again.")
+        errorAlert("Failed to add expense. Please try again.");
       })
       .finally(() => setIsLoading(false));
   };
 
   return (
     <>
-      <form onSubmit={handleExpenseSubmit}>
-        <input
-          type="text"
-          placeholder="ENTER DESCRIPTION"
-          value={expenseName}
-          onChange={(e) => setExpenseName(e.target.value)}
-          className="expense-input"
-          required
-        />
-        <input
-          type="number"
-          placeholder="ENTER AMOUNT"
-          value={expenseAmount}
-          onChange={(e) => setExpenseAmount(e.target.value)}
-          className="expense-input"
-          required
-        />
-        <button type="submit" className="expense-add-btn" disabled={isLoading}>
-          {isLoading ? "Adding..." : "+"}
-        </button>
-      </form>
+      <div>
+        <h3>Bought something?</h3>
+        <form onSubmit={handleExpenseSubmit}>
+          <input
+            type="text"
+            placeholder="ENTER DESCRIPTION"
+            value={expenseName}
+            onChange={(e) => setExpenseName(e.target.value)}
+            className="expense-input"
+            required
+          />
+          <input
+            type="number"
+            placeholder="ENTER AMOUNT"
+            value={expenseAmount}
+            onChange={(e) => setExpenseAmount(e.target.value)}
+            className="expense-input"
+            required
+          />
+          <button
+            type="submit"
+            className="expense-add-btn-2"
+            disabled={isLoading}
+          >
+            {isLoading ? "Adding..." : "+"}
+          </button>
+        </form>
+      </div>
     </>
   );
 }
