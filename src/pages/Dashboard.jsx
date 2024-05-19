@@ -7,6 +7,7 @@ import ConditionalMessage from "../components/ConditionalMessage";
 import MonthList from "../components/MonthList";
 import BarChart from "../components/BarChart";
 import { Spinner } from "react-bootstrap";
+import ExchangeRate from "../components/ExchangeRate";
 
 import "../styles/dashboard.css";
 
@@ -150,6 +151,7 @@ export default function Dashboard() {
 
               <div className="expenses-child">
                 <MonthList monthTotal={formatCurrency(totalCurrMonth)}/>
+                <ExchangeRate />
               </div>
             </>
           )}
