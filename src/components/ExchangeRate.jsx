@@ -21,6 +21,7 @@ https://v6.exchangerate-api.com/v6/0218e1b3fec7885b4531ee7f/latest/USD`
           EUR: rates.EUR,
           KRW: rates.KRW,
           JPY: rates.JPY,
+          AUD: rates.AUD,
         };
         setExchangeRates(filteredRates);
         setLoading(false);
