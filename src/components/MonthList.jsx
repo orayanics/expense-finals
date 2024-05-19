@@ -68,7 +68,7 @@ export default function MonthList({ monthTotal }) {
         <p className="card-text">Total Expenses</p>
       </div>
       <div
-        style={{ maxHeight: "400px", overflowY: "auto", borderRadius: "13px" }}
+        style={{ maxHeight: "400px", overflowY: "auto", borderRadius: "13px", marginTop: "1em", marginBottom: "1em"}}
       >
         {expensesOfCurrentMonth.map((expense) => (
           <div key={expense.id} className="month-container">

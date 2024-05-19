@@ -357,11 +357,34 @@ input[type="text"],
   border-width: 0 2px 2px 0;
 }
 
+/* exchange rate */
+.exchange-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
+.exchange-container div {
+  width: 30%;
+}
 
+.exchange-container .dashboard-card p {
+  margin-bottom: 0;
+}
 
+.exchange-money {
+  color:#ffcd29;
+  font-size: 1.25em;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
 
-
+.exchange-title {
+  color: rgba(202, 202, 202, 0.6);
+  font-weight: 500;
+}
 @media (max-width: 991px) {
   .expense-container,
   .container-two {

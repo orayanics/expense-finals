@@ -169,37 +169,6 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
-      {/* Sorting options
-      <div className="sort-options">
-        <label>
-          <input
-            type="checkbox"
-            checked={sortByToday}
-            onChange={() => setSortByToday(!sortByToday)}
-            disabled={sortByWeek || sortByMonth}
-          />
-          Today
-        </label>
-        <label className="sort-option">
-          <input
-            type="checkbox"
-            checked={sortByWeek}
-            onChange={() => setSortByWeek(!sortByWeek)}
-            disabled={sortByToday || sortByMonth}
-          />
-          This Week
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={sortByMonth}
-            onChange={() => setSortByMonth(!sortByMonth)}
-            disabled={sortByToday || sortByWeek}
-          />
-          This Month
-        </label>
-      </div> */}
-
       <h2 className="h2">Your Expenses</h2>
       {/* Sorting options */}
       <div className="sort-options">
