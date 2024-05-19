@@ -6,9 +6,6 @@ import ExpenseInput from "../components/ExpenseInput";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseStats from "../components/ExpenseStats";
 
-// Utils
-import ConditionalMessage from "../components/ConditionalMessage";
-
 export default function Expense() {
   const [date] = useState(new Date());
   const [totalAmount, setTotalAmount] = useState(0);

@@ -133,7 +133,7 @@ export default function ExpenseStats({ totalAmount }) {
         <div className="expense-child child-col">
           <div>
             <p>{formatCurrency(totalAmount)}</p>
-            <h3>Expenses</h3>
+            <h3>All-Time Expenses</h3>
           </div>
         </div>
       </div>
