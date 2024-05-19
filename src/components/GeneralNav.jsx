@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "../styles/generalnav.css";
 export default function GeneralNav() {
+  const check = JSON.parse(localStorage.getItem("auth"));
+
   const [showMobileList, setShowMobileList] = useState(false);
 
   const showLinks = () => {
@@ -11,7 +13,9 @@ export default function GeneralNav() {
     <>
       <div className="topnav">
         <div className="logo-image links">
-          <a href="/" className="moneydaddy-link">
+          <a href={
+            check ? "/dashboard" : "/"
+          } className="moneydaddy-link">
             <img src="MONEYDADDY.png" alt="MoneyDaddy" width="25" />
             <p className="moneydaddy-text">MoneyDaddy</p>
           </a>
@@ -27,7 +31,9 @@ export default function GeneralNav() {
       <div className="mobile-container">
         <div className="topnav-mobile">
           <div className="logo-image">
-            <a href="/" className="moneydaddy-link">
+            <a href={
+              check ? "/dashboard" : "/"
+            } className="moneydaddy-link">
               <img src="MONEYDADDY-2.png" alt="MoneyDaddy" width="25" />
               <span className="moneydaddy-text">MoneyDaddy</span>
             </a>

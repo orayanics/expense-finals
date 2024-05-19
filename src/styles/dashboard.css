@@ -71,7 +71,7 @@ h6 {
 .expenses-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   /* padding: 5%; */
   gap: 20px;
   margin-top: 1em;

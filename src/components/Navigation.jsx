@@ -6,6 +6,7 @@ import { useState } from "react";
 import "../styles/navigation.css";
 
 export default function Navigation() {
+  
   const navigate = useNavigate();
   const [showMobileList, setShowMobileList] = useState(false);
 

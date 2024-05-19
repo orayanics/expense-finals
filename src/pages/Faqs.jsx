@@ -4,6 +4,8 @@ import Footer from "../components/Footer";
 import "../styles/faq.css";
 
 function Faqs() {
+    const check = JSON.parse(localStorage.getItem("auth"));
+
   return (
     <>
       <div className="faqs">
@@ -51,7 +53,9 @@ function Faqs() {
             </Accordion>
 
           </div>
-          <a href="/" className="back-to-home">
+          <a href={
+            check ? "/dashboard" : "/"
+          } className="back-to-home">
             <button className="back2">Back to Home</button>
           </a>
           <Footer />
