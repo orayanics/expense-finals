@@ -285,6 +285,83 @@ input[type="text"],
   transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.add-balance-txt {
+  border-radius: 13px;
+  text-transform: uppercase;
+}
+
+/* CONTAINER */
+.sort-options {
+  background-color: #f6f6f6;
+  border: 1px solid #ccc;
+  border-radius: 13px;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom:10px;
+  height:50px;
+}
+
+/* LABEL */
+.sort-options label {
+  display: flex;
+  align-items: center;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  font-size:14px;
+  text-transform: uppercase;
+}
+
+/* MARGIN */
+.sort-options input[type="checkbox"] {
+  margin-right: 8px;
+  margin-bottom:3px;
+  cursor: pointer;
+}
+
+/* DISABLED */
+.sort-options input[type="checkbox"]:disabled {
+  transition-duration: 0.5s;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* CHECKBOX DESIGN */
+.sort-options input[type="checkbox"]::before {
+  content: ' ';
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #222222;
+  border-radius: 4px;
+  background-color: #f6f6f6;
+  transition: background-color 0.s ease;
+}
+
+/* NAKACHECK */
+.sort-options input[type="checkbox"]:checked::before {
+  background-color: #222222;
+  border-color: #222222;
+}
+
+.sort-options input[type="checkbox"]:checked::after {
+  content: '';
+  display: block;
+  left: 6px;
+  top: 10px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+}
+
+
+
+
+
+
 @media (max-width: 991px) {
   .expense-container,
   .container-two {

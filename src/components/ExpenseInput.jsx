@@ -85,8 +85,8 @@ export default function ExpenseInput() {
             type="submit"
             className="expense-add-btn-2"
             disabled={isLoading}
-          >
-            {isLoading ? "+" : "+"}
+          ><i className="bi bi-plus-lg"></i>
+            {/* {isLoading ? "+" : "+"} */}
           </button>
         </form>
       </div>

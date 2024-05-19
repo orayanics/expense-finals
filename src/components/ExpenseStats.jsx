@@ -84,6 +84,7 @@ export default function ExpenseStats({ totalAmount }) {
                 <input
                   type="number"
                   placeholder="Add balance"
+                  className="add-balance-txt"
                   value={balanceInput}
                   onChange={(e) => setBalanceInput(e.target.value)}
                 />

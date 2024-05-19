@@ -169,6 +169,38 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
         </Modal.Footer>
       </Modal>
 
+      {/* Sorting options
+      <div className="sort-options">
+        <label>
+          <input
+            type="checkbox"
+            checked={sortByToday}
+            onChange={() => setSortByToday(!sortByToday)}
+            disabled={sortByWeek || sortByMonth}
+          />
+          Today
+        </label>
+        <label className="sort-option">
+          <input
+            type="checkbox"
+            checked={sortByWeek}
+            onChange={() => setSortByWeek(!sortByWeek)}
+            disabled={sortByToday || sortByMonth}
+          />
+          This Week
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={sortByMonth}
+            onChange={() => setSortByMonth(!sortByMonth)}
+            disabled={sortByToday || sortByWeek}
+          />
+          This Month
+        </label>
+      </div> */}
+
+      <h2 className="h2">Your Expenses</h2>
       {/* Sorting options */}
       <div className="sort-options">
         <label>
@@ -178,16 +210,16 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
             onChange={() => setSortByToday(!sortByToday)}
             disabled={sortByWeek || sortByMonth}
           />
-          My Expenses Today
+          Today
         </label>
-        <label>
+        <label className="sort-option">
           <input
             type="checkbox"
             checked={sortByWeek}
             onChange={() => setSortByWeek(!sortByWeek)}
             disabled={sortByToday || sortByMonth}
           />
-          My Expenses this Week
+          This Week
         </label>
         <label>
           <input
@@ -196,12 +228,9 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
             onChange={() => setSortByMonth(!sortByMonth)}
             disabled={sortByToday || sortByWeek}
           />
-          My Expenses this Month
+          This Month
         </label>
       </div>
-
-      <h2 className="h2">Your Expenses</h2>
-
       {loading ? (
         <div>
           <Spinner animation="border" variant="warning" className="loading" />
