@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { getDatabase, ref, onValue, remove, update } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
@@ -34,6 +34,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   const [sortByMonth, setSortByMonth] = useState(false);
 
   const db = getDatabase();
+  const editRef = useRef(null);
 
   // Fetch data from Firebase
   const fetchData = useCallback(() => {
@@ -138,6 +139,25 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
     [db, userId]
   );
 
+  // outside clickers hahauhs
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (editRef.current && !editRef.current.contains(event.target)) {
+        setEditExpense(null);
+      }
+    }
+
+    if (editExpense) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editExpense]);
+
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
@@ -147,7 +167,10 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
   };
 
   const formatCurrency = (amount) => {
-    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+    return amount.toLocaleString("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
   };
 
   return (
@@ -210,7 +233,7 @@ export default function ExpenseList({ setTotalAmount, setIsLoading }) {
             {filteredExpenses.map((expense) => (
               <div key={expense.expenseId}>
                 {editExpense === expense.expenseId ? (
-                  <div className="change-container">
+                  <div className="change-container" ref={editRef}>
                     <div>
                       <div className="input-logo">
                         <i class="bi bi-tag-fill"></i>

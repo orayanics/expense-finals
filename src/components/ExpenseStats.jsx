@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { getDatabase, ref, onValue, runTransaction } from "firebase/database";
 import { getUser } from "../utils/getUser";
 
@@ -12,6 +12,7 @@ export default function ExpenseStats({ totalAmount }) {
   const [balanceInput, setBalanceInput] = useState("");
 
   const [modalShow, setModalShow] = useState(false);
+  const balanceInputRef = useRef(null);
 
   // fetch balance
   const db = useMemo(() => getDatabase(), []);
@@ -67,8 +68,32 @@ export default function ExpenseStats({ totalAmount }) {
     }
   };
 
+  // clickers outside ahuhau
+  const handleClickOutside = useCallback((event) => {
+    if (
+      balanceInputRef.current &&
+      !balanceInputRef.current.contains(event.target)
+    ) {
+      setClickBalance(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (clickBalance) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [clickBalance, handleClickOutside]);
+
   const formatCurrency = (amount) => {
-    return amount.toLocaleString('en-US', { style: 'currency', currency: 'PHP' });
+    return amount.toLocaleString("en-US", {
+      style: "currency",
+      currency: "PHP",
+    });
   };
 
   return (
@@ -82,6 +107,7 @@ export default function ExpenseStats({ totalAmount }) {
             {clickBalance ? (
               <>
                 <input
+                  ref={balanceInputRef}
                   type="number"
                   placeholder="Add balance"
                   className="add-balance-txt"
@@ -131,7 +157,8 @@ function NegativeBalance(props) {
       <Modal.Body>
         <p>
           It seems like you've been spending more than you have. Consider adding
-          more balance to your account. Adding balance will set your balance and will not add to the negative balance.
+          more balance to your account. Adding balance will set your balance and
+          will not add to the negative balance.
         </p>
       </Modal.Body>
       <Modal.Footer>
