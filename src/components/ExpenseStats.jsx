@@ -106,17 +106,18 @@ export default function ExpenseStats({ totalAmount }) {
             <p>{`${formatCurrency(balance)}`}</p>
             {clickBalance ? (
               <>
-                <input
-                  ref={balanceInputRef}
-                  type="number"
-                  placeholder="Add balance"
-                  className="add-balance-txt"
-                  value={balanceInput}
-                  onChange={(e) => setBalanceInput(e.target.value)}
-                />
-                <button onClick={handleBalanceSubmit} className="balance-btn">
-                  <i className="bi bi-plus-lg"></i>
-                </button>
+                <span ref={balanceInputRef}>
+                  <input
+                    type="number"
+                    placeholder="Add balance"
+                    className="add-balance-txt"
+                    value={balanceInput}
+                    onChange={(e) => setBalanceInput(e.target.value)}
+                  />
+                  <button onClick={handleBalanceSubmit} className="balance-btn">
+                    <i className="bi bi-plus-lg"></i>
+                  </button>
+                </span>
               </>
             ) : (
               <button
